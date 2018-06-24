@@ -5,8 +5,16 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <bean id="petStore"
-        class="org.litespring.service.v1.PetStoreService"
-        scope="singleton">
+        class="org.litespring.service.v1.PetStoreService" >
+
+    <property name="accountDao" ref="accountDao"/>
+    <property name="itemDao" ref="itemDao"/>
   </bean>
+
+  <bean id="accountDao"
+        class="org.litespring.dao.v2.AccountDao"></bean>
+  <bean id="itemDao"
+        class="org.litespring.dao.v2.ItemDao"></bean>
+
 </beans>
 
