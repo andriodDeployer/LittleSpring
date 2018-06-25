@@ -4,6 +4,8 @@ package org.litespring.beans.factory.xml;
  * Created by DELL on 2018/6/20.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -17,7 +19,6 @@ import org.litespring.util.StringUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 
 /**
@@ -46,7 +47,7 @@ public class XMLBeanDefinitionReader {
 
     BeanDefinitionRegistry registry;
    // protected final Logger logger = LoggerFactory.getLogger(getClass());
-    protected final Logger logger =
+    protected final Log logger = LogFactory.getLog(getClass());
 
 
     public XMLBeanDefinitionReader(BeanDefinitionRegistry registry) {
@@ -92,12 +93,23 @@ public class XMLBeanDefinitionReader {
             Element propElem = (Element) iterator.next();
             String propertyName = propElem.attributeValue(NAME_ATTRIBUTE);
             if(!StringUtils.hasLength(propertyName)) {
-                logger.error("Tag");
+                logger.fatal("Tag 'property' must have a 'name' attribute");
                 return;
-
             }
-            String propertyValue = propElem.attributeValue(VALUE_ATTRIBUTE);
+            Object val = parsePropertyValue(propElem,bd,propertyName);
+
+             //propertyValue = propElem.attributeValue(VALUE_ATTRIBUTE);
         }
+    }
+
+    public Object parsePropertyValue(Element ele, BeanDefinition bd, String propertyName){
+        String elementName = (propertyName != null) ? "<property> element for property '" + propertyName + "'":
+                "<constructor-arg> element";
+
+        boolean hasRefAttribute = (ele.attribute(REF_ATTRIBUTE) == null);
+        boolean hasValueAttribute = (ele.attribute(VALUE_ATTRIBUTE) == null);
+        //if(hasRefAttribute)
+        return null;
     }
 
 
