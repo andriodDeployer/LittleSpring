@@ -111,6 +111,7 @@ public class XMLBeanDefinitionReader {
         boolean hasValueAttribute = (ele.attribute(VALUE_ATTRIBUTE) == null);
         if(hasRefAttribute){
 
+
         }else{
 
         }
