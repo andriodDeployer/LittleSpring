@@ -13,12 +13,11 @@ import org.litespring.beans.factory.support.BeanDefinitionRegistry;
 import org.litespring.beans.factory.support.GenericBeanDefinition;
 import org.litespring.core.io.Resource;
 import org.litespring.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 
 /**
@@ -46,7 +45,8 @@ public class XMLBeanDefinitionReader {
 
 
     BeanDefinitionRegistry registry;
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+   // protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger =
 
 
     public XMLBeanDefinitionReader(BeanDefinitionRegistry registry) {
@@ -92,6 +92,7 @@ public class XMLBeanDefinitionReader {
             Element propElem = (Element) iterator.next();
             String propertyName = propElem.attributeValue(NAME_ATTRIBUTE);
             if(!StringUtils.hasLength(propertyName)) {
+                logger.error("Tag");
                 return;
 
             }
