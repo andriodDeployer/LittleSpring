@@ -12,7 +12,9 @@ import org.litespring.beans.factory.BeanDefinitionStoreException;
 import org.litespring.beans.factory.support.BeanDefinitionRegistry;
 import org.litespring.beans.factory.support.GenericBeanDefinition;
 import org.litespring.core.io.Resource;
+import org.litespring.util.StringUtils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
@@ -49,8 +51,9 @@ public class XMLBeanDefinitionReader {
     }
 
     public void loadBeanDefinitions(Resource resource) {
+        InputStream is = null;
         try {
-                InputStream is = resource.getInputStream();
+                is = resource.getInputStream();
                 SAXReader reader = new SAXReader();
                 Document doc = reader.read(is);
                 Element root = doc.getRootElement();//<beans>
@@ -69,6 +72,32 @@ public class XMLBeanDefinitionReader {
 
         } catch (Exception e) {
             throw new BeanDefinitionStoreException("IOException parsing XML document",e);
+        }finally {
+            if(is != null){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
+
+    public void parsePropertyElement(Element beanElem, BeanDefinition bd){
+        Iterator iterator = beanElem.elementIterator(PROPERTY_ELEMENT);
+        while (iterator.hasNext()){
+            Element propElem = (Element) iterator.next();
+            String propertyName = propElem.attributeValue(NAME_ATTRIBUTE);
+            if(!StringUtils.hasLength(propertyName)) {
+                return;
+
+            }
+            String propertyValue = propElem.attributeValue(VALUE_ATTRIBUTE);
+        }
+    }
+
+
+
+
+
 }
