@@ -10,6 +10,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.litespring.beans.BeanDefinition;
+import org.litespring.beans.PropertyValue;
 import org.litespring.beans.factory.BeanDefinitionStoreException;
 import org.litespring.beans.factory.config.RuntimeBeanReference;
 import org.litespring.beans.factory.config.TypedStringValue;
@@ -73,6 +74,7 @@ public class XMLBeanDefinitionReader {
                     if(scope != null){
                         bd.setScope(scope);
                     }
+                    parsePropertyElement(ele,bd);
                     registry.registerBeanDefinition(beanId,bd);//不断的调用registerDefinition，将解析出来的beanDefinition放到beanFactory中
                 }
 
@@ -99,8 +101,7 @@ public class XMLBeanDefinitionReader {
                 return;
             }
             Object val = parsePropertyValue(propElem,bd,propertyName);
-
-             //propertyValue = propElem.attributeValue(VALUE_ATTRIBUTE);
+            bd.getPropertyValues().add(new PropertyValue(propertyName,val));
         }
     }
 
@@ -118,10 +119,12 @@ public class XMLBeanDefinitionReader {
             }
             RuntimeBeanReference ref = new RuntimeBeanReference(refName);
             return ref;
-        }else{
+        }else if(hasValueAttribute){
             TypedStringValue valueHolder = new TypedStringValue(ele.attributeValue(VALUE_ATTRIBUTE));
+            return valueHolder;
+        }else{
+            throw new RuntimeException(elementName + "must specify a ref or value");
         }
-        return null;
     }
 
 
