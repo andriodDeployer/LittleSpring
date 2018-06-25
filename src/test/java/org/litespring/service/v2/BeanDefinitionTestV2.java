@@ -17,6 +17,7 @@ public class BeanDefinitionTestV2 {
     public void testGetBeanDefinition(){
         DefaultBeanFactory factory = new DefaultBeanFactory();
         XMLBeanDefinitionReader reader = new XMLBeanDefinitionReader(factory);
+        //test
         //reader.loadBeanDefinitions("petstore-v2.xml");
        // BeanD
     }
