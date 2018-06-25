@@ -96,6 +96,7 @@ public class XMLBeanDefinitionReader {
         while (iterator.hasNext()){
             Element propElem = (Element) iterator.next();
             String propertyName = propElem.attributeValue(NAME_ATTRIBUTE);
+            String proValue = propElem.attributeValue(REF_ATTRIBUTE);
             if(!StringUtils.hasLength(propertyName)) {
                 logger.fatal("Tag 'property' must have a 'name' attribute");
                 return;
@@ -110,8 +111,8 @@ public class XMLBeanDefinitionReader {
                 "<constructor-arg> element";
 
         //是否可以针对propertyValue中value的类型不同，创建不同的propertyValue类型。
-        boolean hasRefAttribute = (ele.attribute(REF_ATTRIBUTE) == null);
-        boolean hasValueAttribute = (ele.attribute(VALUE_ATTRIBUTE) == null);
+        boolean hasRefAttribute = (ele.attribute(REF_ATTRIBUTE) != null);
+        boolean hasValueAttribute = (ele.attribute(VALUE_ATTRIBUTE) != null);
         if(hasRefAttribute){
             String refName = ele.attributeValue(REF_ATTRIBUTE);
             if(!StringUtils.hasText(refName)){

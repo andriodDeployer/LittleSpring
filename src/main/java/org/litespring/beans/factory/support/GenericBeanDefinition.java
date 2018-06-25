@@ -21,7 +21,7 @@ public class GenericBeanDefinition implements BeanDefinition {
     private String scope;
     private boolean singleton = true;
     private boolean prototype = false;
-    private List<PropertyValue> propertyValues;
+    private List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
 
     public GenericBeanDefinition(String beanId, String beanClassName) {
         this.beanId = beanId;
@@ -51,10 +51,7 @@ public class GenericBeanDefinition implements BeanDefinition {
     }
 
     public List<PropertyValue> getPropertyValues() {
-        return propertyValues != null ? propertyValues : new ArrayList<PropertyValue>();
+        return propertyValues;
     }
 
-    public void setPropertyValues(List<PropertyValue> propertyValues){
-        this.propertyValues = propertyValues;
-    }
 }
