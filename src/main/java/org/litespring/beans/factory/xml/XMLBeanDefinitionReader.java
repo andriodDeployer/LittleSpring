@@ -44,6 +44,7 @@ public class XMLBeanDefinitionReader {
 
 
     BeanDefinitionRegistry registry;
+   // protected final Log logger =
 
 
     public XMLBeanDefinitionReader(BeanDefinitionRegistry registry) {
