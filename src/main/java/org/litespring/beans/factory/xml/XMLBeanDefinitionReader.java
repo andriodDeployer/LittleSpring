@@ -96,7 +96,6 @@ public class XMLBeanDefinitionReader {
         while (iterator.hasNext()){
             Element propElem = (Element) iterator.next();
             String propertyName = propElem.attributeValue(NAME_ATTRIBUTE);
-            String proValue = propElem.attributeValue(REF_ATTRIBUTE);
             if(!StringUtils.hasLength(propertyName)) {
                 logger.fatal("Tag 'property' must have a 'name' attribute");
                 return;
