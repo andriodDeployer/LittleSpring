@@ -2,6 +2,8 @@ package org.litespring.beans;/**
  * Created by DELL on 2018/6/19.
  */
 
+import java.util.List;
+
 /**
  * user is
  **/
@@ -19,4 +21,5 @@ public interface BeanDefinition {
 
     String getScope();
     void setScope(String scope);
+    List<PropertyValue> getPropertyValues();
 }

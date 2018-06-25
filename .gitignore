@@ -27,4 +27,6 @@ hs_err_pid*
 .gitignore
 .idea/vcs.xml
 .idea/workspace.xml
+.idea/misc.xml
 target/
+/.idea/workspace.xml

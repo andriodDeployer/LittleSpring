@@ -4,6 +4,9 @@ package org.litespring.beans.factory.support;
  */
 
 import org.litespring.beans.BeanDefinition;
+import org.litespring.beans.PropertyValue;
+
+import java.util.List;
 
 /**
  * user is
@@ -17,6 +20,7 @@ public class GenericBeanDefinition implements BeanDefinition {
     private String scope;
     private boolean singleton = true;
     private boolean prototype = false;
+    private List<PropertyValue> propertyValues;
 
     public GenericBeanDefinition(String beanId, String beanClassName) {
         this.beanId = beanId;
@@ -43,5 +47,13 @@ public class GenericBeanDefinition implements BeanDefinition {
         this.scope = scope;
         this.singleton = SCOPE_SINGLETON.equals(scope);
         this.prototype = SCOPE_PROTOTYPE.equals(scope);
+    }
+
+    public List<PropertyValue> getPropertyValues() {
+        return propertyValues;
+    }
+
+    public void setPropertyValues(List<PropertyValue> propertyValues){
+        this.propertyValues = propertyValues;
     }
 }
