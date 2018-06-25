@@ -6,6 +6,7 @@ package org.litespring.beans.factory.support;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.PropertyValue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class GenericBeanDefinition implements BeanDefinition {
     }
 
     public List<PropertyValue> getPropertyValues() {
-        return propertyValues;
+        return propertyValues != null ? propertyValues : new ArrayList<PropertyValue>();
     }
 
     public void setPropertyValues(List<PropertyValue> propertyValues){
