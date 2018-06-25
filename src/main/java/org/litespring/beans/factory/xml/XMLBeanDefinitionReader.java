@@ -4,8 +4,6 @@ package org.litespring.beans.factory.xml;
  * Created by DELL on 2018/6/20.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -15,6 +13,8 @@ import org.litespring.beans.factory.support.BeanDefinitionRegistry;
 import org.litespring.beans.factory.support.GenericBeanDefinition;
 import org.litespring.core.io.Resource;
 import org.litespring.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +46,7 @@ public class XMLBeanDefinitionReader {
 
 
     BeanDefinitionRegistry registry;
-    protected final Log logger = LogFactory.getLog(getClass());
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 
     public XMLBeanDefinitionReader(BeanDefinitionRegistry registry) {
