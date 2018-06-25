@@ -106,9 +106,14 @@ public class XMLBeanDefinitionReader {
         String elementName = (propertyName != null) ? "<property> element for property '" + propertyName + "'":
                 "<constructor-arg> element";
 
+        //是否可以针对propertyValue中value的类型不同，创建不同的propertyValue类型。
         boolean hasRefAttribute = (ele.attribute(REF_ATTRIBUTE) == null);
         boolean hasValueAttribute = (ele.attribute(VALUE_ATTRIBUTE) == null);
-        //if(hasRefAttribute)
+        if(hasRefAttribute){
+
+        }else{
+
+        }
         return null;
     }
 
