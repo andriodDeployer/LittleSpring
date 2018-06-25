@@ -11,6 +11,8 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.factory.BeanDefinitionStoreException;
+import org.litespring.beans.factory.config.RuntimeBeanReference;
+import org.litespring.beans.factory.config.TypedStringValue;
 import org.litespring.beans.factory.support.BeanDefinitionRegistry;
 import org.litespring.beans.factory.support.GenericBeanDefinition;
 import org.litespring.core.io.Resource;
@@ -110,10 +112,14 @@ public class XMLBeanDefinitionReader {
         boolean hasRefAttribute = (ele.attribute(REF_ATTRIBUTE) == null);
         boolean hasValueAttribute = (ele.attribute(VALUE_ATTRIBUTE) == null);
         if(hasRefAttribute){
-
-
+            String refName = ele.attributeValue(REF_ATTRIBUTE);
+            if(!StringUtils.hasText(refName)){
+                logger.error(elementName + " contains empty 'ref' attribute");//仅仅只是输出了一条日志，因为不会一个prperty加载出错，使整个程序崩溃
+            }
+            RuntimeBeanReference ref = new RuntimeBeanReference(refName);
+            return ref;
         }else{
-
+            TypedStringValue valueHolder = new TypedStringValue(ele.attributeValue(VALUE_ATTRIBUTE));
         }
         return null;
     }
