@@ -1,4 +1,4 @@
-package org.litespring.service.v2;/**
+package org.litespring.test.v2;/**
  * Created by Administrator on 2018-6-24 0024.
  */
 
@@ -37,8 +37,6 @@ public class BeanDefinitionTestV2 {
         PropertyValue pv1 = getPropertyValue("itemDao",pvs);
         Assert.assertNotNull(pv1);
         Assert.assertTrue(pv1.getValue() instanceof RuntimeBeanReference);
-
-
 
     }
 
