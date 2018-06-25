@@ -47,8 +47,5 @@ public class BeanDefinitionTestV2 {
             }
         }
         return null;
-
     }
-
-
 }

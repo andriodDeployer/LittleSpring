@@ -32,6 +32,14 @@ public class XMLBeanDefinitionReader {
 
     public static final String SCOPE_ATTRIBUTE = "scope";
 
+    public static final String PROPERTY_ELEMENT = "property";
+
+    public static final String NAME_ATTRIBUTE = "name";
+
+    public static final String REF_ATTRIBUTE = "ref";
+
+    public static final String VALUE_ATTRIBUTE = "value";
+
 
     BeanDefinitionRegistry registry;
 
