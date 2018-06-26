@@ -30,7 +30,6 @@ public class ApplicationContextTestV2 {
         Assert.assertTrue(petStoreService.getAccountDao() instanceof AccountDao);
         Assert.assertTrue(petStoreService.getItemDao() instanceof ItemDao);
 
-
         Assert.assertNotNull(petStoreService.getOwner());
         Assert.assertNotNull(petStoreService.getVersion());
 
