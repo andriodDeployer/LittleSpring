@@ -8,7 +8,7 @@
         class="org.litespring.service.v2.PetStoreService" >
 
     <property name="accountDao" ref="accountDao"/>
-    <property name="itemDao"/>
+    <property name="itemDao" ref=""/>
   </bean>
 
   <bean id="accountDao"
