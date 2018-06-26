@@ -42,12 +42,9 @@ public class BeanDefinitionValueResolverTest {
 
     @Test
     public void testResolveTypedStringValue(){
-
         TypedStringValue typedStringValue = new TypedStringValue("test");
         Object value = resolver.resolveValueIfNecessary(typedStringValue);
         Assert.assertNotNull(value);
         Assert.assertEquals("test",value);
-
-
     }
 }
