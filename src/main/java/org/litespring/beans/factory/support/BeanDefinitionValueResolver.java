@@ -27,6 +27,7 @@ public class BeanDefinitionValueResolver {
         }else if(value instanceof TypedStringValue){
             return ((TypedStringValue)value).getValue();
         }else{
+            //todo :这里这样做是否违反了ocp原则，但是如果针对每种情况做扩展的话，是否类太多，这个怎么权衡？
             throw new RuntimeException("the value ' "+value+" ' has not implemented ");
         }
     }
