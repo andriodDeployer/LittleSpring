@@ -77,8 +77,8 @@ public class XMLBeanDefinitionReader {
                     parsePropertyElement(ele,bd);
                     registry.registerBeanDefinition(beanId,bd);//不断的调用registerDefinition，将解析出来的beanDefinition放到beanFactory中
                 }
-
         } catch (Exception e) {
+
             throw new BeanDefinitionStoreException("IOException parsing XML document",e);
         }finally {
             if(is != null){
@@ -106,6 +106,7 @@ public class XMLBeanDefinitionReader {
     }
 
     public Object parsePropertyValue(Element ele, BeanDefinition bd, String propertyName){
+        //如果property标签中没有name属性的话，就说明这个property为构造器参数。
         String elementName = (propertyName != null) ? "<property> element for property '" + propertyName + "'":
                 "<constructor-arg> element";
 
