@@ -101,7 +101,8 @@ public class XMLBeanDefinitionReader {
                 return;
             }
             Object val = parsePropertyValue(propElem,bd,propertyName);
-            bd.getPropertyValues().add(new PropertyValue(propertyName,val));
+            PropertyValue pv = new PropertyValue(propertyName,val);
+            bd.getPropertyValues().add(pv);
         }
     }
 
@@ -127,9 +128,4 @@ public class XMLBeanDefinitionReader {
             throw new RuntimeException(elementName + "must specify a ref or value");
         }
     }
-
-
-
-
-
 }
