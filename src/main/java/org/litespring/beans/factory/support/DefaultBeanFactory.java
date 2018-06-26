@@ -4,11 +4,16 @@ package org.litespring.beans.factory.support;
  */
 
 import org.litespring.beans.BeanDefinition;
+import org.litespring.beans.PropertyValue;
 import org.litespring.beans.factory.BeanCreationException;
 import org.litespring.beans.factory.config.ConfigurableBeanFactory;
 import org.litespring.util.ClassUtils;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,14 +49,49 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     }
 
     private Object createBean(BeanDefinition bd) {
+        Object bean = instantiateBean(bd);
+        populateBean(bd,bean);
+        return bean;
+    }
+
+    private Object instantiateBean(BeanDefinition beanDefinition){
         ClassLoader loader = getBeanClassLoader();
-        String beanClassName = bd.getBeanClassName();
+        String beanClassName = beanDefinition.getBeanClassName();
         try {
             Class<?> clazz = loader.loadClass(beanClassName);//将指定的一个类加载到内存中，并获取到这个类的class文件
             return clazz.newInstance();//目前只支持午餐构造
         } catch (Exception e) {
             e.printStackTrace();
             throw new BeanCreationException("create bean for " + beanClassName + " accure error ");
+        }
+    }
+
+    //setter注入
+    private void populateBean(BeanDefinition bd,Object bean){
+        List<PropertyValue> propertyValues = bd.getPropertyValues();
+
+        if(propertyValues == null || propertyValues.isEmpty()){
+            return ;//不需要进行setter注入
+        }
+
+        BeanDefinitionValueResolver resolver = new BeanDefinitionValueResolver(this);
+        try{
+            for(PropertyValue pv : propertyValues){
+                String propertyName = pv.getName();
+                Object originalValue = pv.getValue(); //RuntimeBeanReference/TypedStringValue
+                Object value = resolver.resolveValueIfNecessary(originalValue);
+                //通过反射对setter进行注入？通过JavaBean规范的工具类Introspector
+                BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
+                PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+                for (PropertyDescriptor pd : propertyDescriptors){
+                    if(pd.getName().equals(propertyName)){
+                        pd.getWriteMethod().invoke(bean,value);//writerMethod就是setter方法,同理reader方法就是getter方法
+                        break;
+                    }
+                }
+            }
+        }catch (Exception ex){
+            throw new BeanCreationException("Failed to obtain BeanInfo for class [ " + bd.getBeanClassName()+" ]");
         }
     }
 
