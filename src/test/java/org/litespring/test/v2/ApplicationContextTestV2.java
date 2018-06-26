@@ -32,6 +32,7 @@ public class ApplicationContextTestV2 {
 
 
         Assert.assertNotNull(petStoreService.getOwner());
+        Assert.assertNotNull(petStoreService.getVersion());
 
     }
 
