@@ -4,6 +4,7 @@ package org.litespring.beans.factory.support;/**
 
 import org.litespring.beans.factory.BeanFactory;
 import org.litespring.beans.factory.config.RuntimeBeanReference;
+import org.litespring.beans.factory.config.TypedStringValue;
 
 /**
  * user is
@@ -23,6 +24,8 @@ public class BeanDefinitionValueResolver {
             String refName = reference.getBeanName();
             Object bean = beanFactory.getBean(refName);
             return bean;
+        }else if(value instanceof TypedStringValue){
+            return ((TypedStringValue)value).getValue();
         }else{
             throw new RuntimeException("the value ' "+value+" ' has not implemented ");
         }
