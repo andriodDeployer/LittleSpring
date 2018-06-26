@@ -19,7 +19,7 @@ import org.litespring.dao.v2.AccountDao;
  **/
 
 
-public class BeanDefinitionValueResolverTest {
+public class BeanDefinitionValueResolverTest2 {
     BeanDefinitionValueResolver resolver = null;
     @Before
     public void setUp(){
