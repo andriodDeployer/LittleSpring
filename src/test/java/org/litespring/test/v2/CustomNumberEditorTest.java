@@ -27,7 +27,7 @@ public class CustomNumberEditorTest {
 
         try{
             editor.setAsText("3.1");
-        }catch (Exception e){
+        }catch (IllegalArgumentException e){
             return ;
         }
         Assert.fail();
