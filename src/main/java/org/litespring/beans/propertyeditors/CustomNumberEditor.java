@@ -22,7 +22,7 @@ public class CustomNumberEditor extends PropertyEditorSupport{
     }
 
     public CustomNumberEditor(Class<? extends Number> numberClass, NumberFormat numberFormat, boolean allowEmpty) {
-        if(numberClass == null || Number.class.isAssignableFrom(numberClass)){
+        if(numberClass == null || !Number.class.isAssignableFrom(numberClass)){
             throw new IllegalArgumentException("Property class must be a subclass if Number");
         }
         this.numberClass = numberClass;
