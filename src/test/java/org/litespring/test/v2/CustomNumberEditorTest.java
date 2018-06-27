@@ -18,14 +18,19 @@ public class CustomNumberEditorTest {
     @Test
     public void testConverString(){
         CustomNumberEditor editor = new CustomNumberEditor(Integer.class,true);
+
+        //测试正常情况
         editor.setAsText("3");
         Object value = editor.getValue();
         Assert.assertTrue(value instanceof Integer);
         Assert.assertEquals(3,((Integer)editor.getValue()).intValue());
 
+
+        //测试边界条件，空/null等
         editor.setAsText("");
         Assert.assertTrue(editor.getValue() == null);
 
+        //测试错误情况
         try{
             editor.setAsText("3.1");
         }catch (IllegalArgumentException e){
