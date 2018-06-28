@@ -31,7 +31,9 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     private final Map<String,BeanDefinition> beanDefinitionMap = new HashMap<String, BeanDefinition>();
     private ClassLoader classLoader;
 
-    public DefaultBeanFactory(){}
+    public DefaultBeanFactory(){
+
+    }
 
 
     public Object getBean(String beanId) {
