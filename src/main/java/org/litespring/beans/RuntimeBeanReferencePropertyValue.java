@@ -15,7 +15,7 @@ public class RuntimeBeanReferencePropertyValue extends PropertyValue {
         super(name, value);
     }
 
-    public Object resoveValue(String value, BeanFactory beanFactory) {
-        return beanFactory.getBean(value);
+    public Object resoveValue( BeanFactory beanFactory) {
+        return beanFactory.getBean(getValue());
     }
 }

@@ -26,7 +26,7 @@ public abstract class PropertyValue {
         return name;
     }
 
-    public abstract Object resoveValue(String value, BeanFactory beanFactory);
+    public abstract Object resoveValue(BeanFactory beanFactory);
 
     public String getValue() {
         return value;

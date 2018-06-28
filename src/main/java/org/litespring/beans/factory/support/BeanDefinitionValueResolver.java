@@ -18,7 +18,7 @@ public class BeanDefinitionValueResolver {
     }
 
     public Object resolveValueIfNecessary(PropertyValue propertyValue, BeanFactory beanFactory) {
-        return propertyValue.resoveValue(propertyValue.getValue(),beanFactory);
+        return propertyValue.resoveValue(beanFactory);
 
     }
 }

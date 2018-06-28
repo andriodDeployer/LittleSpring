@@ -38,11 +38,16 @@ public class BeanDefinitionTestV2 {
         Assert.assertNotNull(pv1);
         Assert.assertTrue(pv1 instanceof RuntimeBeanReferencePropertyValue);
 
+
+        PropertyValue pv2 = getPropertyValue("owner",pvs);
+        Assert.assertNotNull(pv2);
+        Assert.assertEquals("tom",pv2.resoveValue(factory));
+
     }
 
-    private PropertyValue getPropertyValue(String beanName,List<PropertyValue> pvs){
+    private PropertyValue getPropertyValue(String propertyName,List<PropertyValue> pvs){
         for(PropertyValue pv : pvs){
-            if(pv.getName().equals(beanName)){
+            if(pv.getName().equals(propertyName)){
                 return pv;
             }
         }

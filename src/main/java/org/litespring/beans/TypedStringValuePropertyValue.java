@@ -15,7 +15,7 @@ public class TypedStringValuePropertyValue extends PropertyValue {
         super(name, value);
     }
 
-    public Object resoveValue(String value, BeanFactory beanFactory) {
-        return value;
+    public Object resoveValue(BeanFactory beanFactory) {
+        return getValue();
     }
 }
