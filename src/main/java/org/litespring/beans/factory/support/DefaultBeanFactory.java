@@ -5,6 +5,8 @@ package org.litespring.beans.factory.support;
 
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.PropertyValue;
+import org.litespring.beans.SimpleTypeConverter;
+import org.litespring.beans.TypeConverter;
 import org.litespring.beans.factory.BeanCreationException;
 import org.litespring.beans.factory.config.ConfigurableBeanFactory;
 import org.litespring.util.ClassUtils;
@@ -76,6 +78,7 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
         }
 
         BeanDefinitionValueResolver resolver = new BeanDefinitionValueResolver(this);
+        TypeConverter converter = new SimpleTypeConverter();
         try{
             BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
@@ -83,11 +86,13 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
                 String propertyName = pv.getName();
                 Object originalValue = pv.getValue(); //RuntimeBeanReference/TypedStringValue
                 Object value = resolver.resolveValueIfNecessary(originalValue);
+                //需要对value进行相应的类型转换
                 //通过反射对setter进行注入？通过JavaBean规范的工具类Introspector
                 for (PropertyDescriptor pd : propertyDescriptors){
                     if(pd.getName().equals(propertyName)){
+                        Object convertedValue = converter.convertIfNecessary(value,pd.getPropertyType());
                         Method writeMethod = pd.getWriteMethod();
-                        writeMethod.invoke(bean,value);//writerMethod就是setter方法,同理reader方法就是getter方法,如果没有setter方法的话，那个writeMethod方法就是空的
+                        writeMethod.invoke(bean,convertedValue);//writerMethod就是setter方法,同理reader方法就是getter方法,如果没有setter方法的话，那个writeMethod方法就是空的
                         break;
                     }
                 }
