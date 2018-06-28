@@ -6,8 +6,8 @@ package org.litespring.test.v2;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.litespring.beans.factory.config.RuntimeBeanReference;
-import org.litespring.beans.factory.config.TypedStringValue;
+import org.litespring.beans.RuntimeBeanReferencePropertyValue;
+import org.litespring.beans.TypedStringValuePropertyValue;
 import org.litespring.beans.factory.support.BeanDefinitionValueResolver;
 import org.litespring.beans.factory.support.DefaultBeanFactory;
 import org.litespring.beans.factory.xml.XMLBeanDefinitionReader;
@@ -21,9 +21,10 @@ import org.litespring.dao.v2.AccountDao;
 
 public class BeanDefinitionValueResolverTest2 {
     BeanDefinitionValueResolver resolver = null;
+    DefaultBeanFactory factory = new DefaultBeanFactory();
+
     @Before
     public void setUp(){
-        DefaultBeanFactory factory = new DefaultBeanFactory();
         new XMLBeanDefinitionReader(factory).loadBeanDefinitions(new ClassPathResource("petstore-v2.xml"));
         resolver = new BeanDefinitionValueResolver(factory);
     }
@@ -31,19 +32,18 @@ public class BeanDefinitionValueResolverTest2 {
 
     //测试BeanDefinitionValueResolver的功能：resolveValueIfNecessary方法，将RuntimeBeanReference,转换成一个bean。
     @Test
-    public void testResolveRuntimeBeanReference(){
-        RuntimeBeanReference reference = new RuntimeBeanReference("accountDao");
-        Object value = resolver.resolveValueIfNecessary(reference);
+    public void testResolveRuntimeBeanReferenceProperty(){
+        RuntimeBeanReferencePropertyValue reference = new RuntimeBeanReferencePropertyValue("accountDao","accountDao");
+        Object value = resolver.resolveValueIfNecessary(reference,factory);
         Assert.assertNotNull(value);
         Assert.assertTrue(value instanceof AccountDao);
-
     }
 
 
     @Test
-    public void testResolveTypedStringValue(){
-        TypedStringValue typedStringValue = new TypedStringValue("test");
-        Object value = resolver.resolveValueIfNecessary(typedStringValue);
+    public void testResolveTypedStringValueProperty(){
+        TypedStringValuePropertyValue typedStringValue = new TypedStringValuePropertyValue("test","test");
+        Object value = resolver.resolveValueIfNecessary(typedStringValue,factory);
         Assert.assertNotNull(value);
         Assert.assertEquals("test",value);
     }
