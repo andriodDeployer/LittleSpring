@@ -18,17 +18,6 @@ public class BeanDefinitionValueResolver {
     }
 
     public Object resolveValueIfNecessary(PropertyValue propertyValue, BeanFactory beanFactory) {
-//        if(value instanceof RuntimeBeanReference){
-//            RuntimeBeanReference reference = (RuntimeBeanReference) value;
-//            String refName = reference.getBeanName();
-//            Object bean = beanFactory.getBean(refName);
-//            return bean;
-//        }else if(value instanceof TypedStringValue){
-//            return ((TypedStringValue)value).getValue();
-//        }else{
-//            //todo :这里这样做是否违反了ocp原则，但是如果针对每种情况做扩展的话，是否类太多，这个怎么权衡？
-//            throw new RuntimeException("the value ' "+value+" ' has not implemented ");
-//        }
         return propertyValue.resoveValue(propertyValue.getValue(),beanFactory);
 
     }
