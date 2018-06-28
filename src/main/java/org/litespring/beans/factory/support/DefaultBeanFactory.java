@@ -85,7 +85,7 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
             for(PropertyValue pv : propertyValues){
                 String propertyName = pv.getName();
                 Object originalValue = pv.getValue(); //RuntimeBeanReference/TypedStringValue
-                Object value = resolver.resolveValueIfNecessary(originalValue);
+                Object value = resolver.resolveValueIfNecessary(pv,this);
                 //需要对value进行相应的类型转换
                 //通过反射对setter进行注入？通过JavaBean规范的工具类Introspector
                 for (PropertyDescriptor pd : propertyDescriptors){

@@ -2,20 +2,22 @@ package org.litespring.beans;/**
  * Created by DELL on 2018/6/25.
  */
 
+import org.litespring.beans.factory.BeanFactory;
+
 /**
  * user is
  **/
 
 
-public class PropertyValue {
+public abstract class PropertyValue {
 
     private final String name;
-    private final Object value;
+    private final String value;
 
     private boolean converted = false;
     private Object convertedValue;
 
-    public PropertyValue(String name, Object value) {
+    public PropertyValue(String name, String value) {
         this.name = name;
         this.value = value;
     }
@@ -24,7 +26,9 @@ public class PropertyValue {
         return name;
     }
 
-    public Object getValue() {
+    public abstract Object resoveValue(String value, BeanFactory beanFactory);
+
+    public String getValue() {
         return value;
     }
 

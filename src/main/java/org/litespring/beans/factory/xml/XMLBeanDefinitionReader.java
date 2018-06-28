@@ -11,9 +11,9 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.PropertyValue;
+import org.litespring.beans.RuntimeBeanReferencePropertyValue;
+import org.litespring.beans.TypedStringValuePropertyValue;
 import org.litespring.beans.factory.BeanDefinitionStoreException;
-import org.litespring.beans.factory.config.RuntimeBeanReference;
-import org.litespring.beans.factory.config.TypedStringValue;
 import org.litespring.beans.factory.support.BeanDefinitionRegistry;
 import org.litespring.beans.factory.support.GenericBeanDefinition;
 import org.litespring.core.io.Resource;
@@ -100,13 +100,13 @@ public class XMLBeanDefinitionReader {
                 logger.fatal("Tag 'property' must have a 'name' attribute");
                 return;
             }
-            Object val = parsePropertyValue(propElem,bd,propertyName);
-            PropertyValue pv = new PropertyValue(propertyName,val);
+            PropertyValue pv = parsePropertyValue(propElem,bd,propertyName);
+            //PropertyValue pv = new PropertyValue(propertyName,val);
             bd.getPropertyValues().add(pv);
         }
     }
 
-    public Object parsePropertyValue(Element ele, BeanDefinition bd, String propertyName){
+    public PropertyValue parsePropertyValue(Element ele, BeanDefinition bd, String propertyName){
         //如果property标签中没有name属性的话，就说明这个property为构造器参数。
         String elementName = (propertyName != null) ? "<property> element for property '" + propertyName + "'":
                 "<constructor-arg> element";
@@ -119,11 +119,11 @@ public class XMLBeanDefinitionReader {
             if(!StringUtils.hasText(refName)){
                 logger.error(elementName + " contains empty 'ref' attribute");//仅仅只是输出了一条日志，因为不会一个prperty加载出错，使整个程序崩溃
             }
-            RuntimeBeanReference ref = new RuntimeBeanReference(refName);
-            return ref;
+            RuntimeBeanReferencePropertyValue pv = new RuntimeBeanReferencePropertyValue(propertyName,ele.attributeValue(REF_ATTRIBUTE));
+            return pv;
         }else if(hasValueAttribute){
-            TypedStringValue valueHolder = new TypedStringValue(ele.attributeValue(VALUE_ATTRIBUTE));
-            return valueHolder;
+            TypedStringValuePropertyValue pv =  new TypedStringValuePropertyValue(propertyName,ele.attributeValue(VALUE_ATTRIBUTE));
+            return pv;
         }else{
             throw new RuntimeException(elementName + "must specify a ref or value");
         }
