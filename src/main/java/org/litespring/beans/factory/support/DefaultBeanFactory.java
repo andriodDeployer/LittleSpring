@@ -92,6 +92,9 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
                     if(pd.getName().equals(propertyName)){
                         Object convertedValue = converter.convertIfNecessary(value,pd.getPropertyType());
                         Method writeMethod = pd.getWriteMethod();
+
+
+
                         writeMethod.invoke(bean,convertedValue);//writerMethod就是setter方法,同理reader方法就是getter方法,如果没有setter方法的话，那个writeMethod方法就是空的
                         break;
                     }
