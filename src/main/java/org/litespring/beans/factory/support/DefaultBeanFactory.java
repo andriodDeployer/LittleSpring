@@ -3,6 +3,7 @@ package org.litespring.beans.factory.support;
  * Created by DELL on 2018/6/19.
  */
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.PropertyValue;
 import org.litespring.beans.SimpleTypeConverter;
@@ -53,7 +54,8 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
 
     private Object createBean(BeanDefinition bd) {
         Object bean = instantiateBean(bd);
-        populateBean(bd,bean);
+        //populateBean(bd,bean);
+        populateBeanUseCommonBeanUtils(bd,bean);
         return bean;
     }
 
@@ -92,13 +94,35 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
                     if(pd.getName().equals(propertyName)){
                         Object convertedValue = converter.convertIfNecessary(value,pd.getPropertyType());
                         Method writeMethod = pd.getWriteMethod();
-
-
-
                         writeMethod.invoke(bean,convertedValue);//writerMethod就是setter方法,同理reader方法就是getter方法,如果没有setter方法的话，那个writeMethod方法就是空的
                         break;
                     }
                 }
+            }
+        }catch (Exception ex){
+            throw new BeanCreationException("Failed to obtain BeanInfo for class [ " + bd.getBeanClassName()+" ]");//异常信息不明确,配置文件中ref为空的时候。会在resolveValueIfNessary方法中getbean出现异常。
+        }
+    }
+
+    public void populateBeanUseCommonBeanUtils(BeanDefinition bd,Object bean){
+        List<PropertyValue> propertyValues = bd.getPropertyValues();
+
+        if(propertyValues == null || propertyValues.isEmpty()){
+            return ;//不需要进行setter注入
+        }
+
+        BeanDefinitionValueResolver resolver = new BeanDefinitionValueResolver(this);
+        try{
+            BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for(PropertyValue pv : propertyValues){
+                String propertyName = pv.getName();
+                Object originalValue = pv.getValue(); //RuntimeBeanReference/TypedStringValue
+                Object value = resolver.resolveValueIfNecessary(originalValue);
+                //需要对value进行相应的类型转换
+                //通过反射对setter进行注入？使用common-beanutils来实现
+                BeanUtils.setProperty(bean,propertyName,value);
+
             }
         }catch (Exception ex){
             throw new BeanCreationException("Failed to obtain BeanInfo for class [ " + bd.getBeanClassName()+" ]");//异常信息不明确,配置文件中ref为空的时候。会在resolveValueIfNessary方法中getbean出现异常。
