@@ -14,6 +14,13 @@ public class PetStoreService {
 		this.itemDao = itemDao;
 		this.version = -1;
 	}
+//顺序也是一个区分
+	public PetStoreService(ItemDao itemDao, AccountDao accountDao){
+		this.accountDao = accountDao;
+		this.itemDao = itemDao;
+		this.version = -1;
+	}
+
 	public PetStoreService(AccountDao accountDao, ItemDao itemDao,int version){
 		this.accountDao = accountDao;
 		this.itemDao = itemDao;

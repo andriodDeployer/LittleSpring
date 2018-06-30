@@ -4,6 +4,7 @@ package org.litespring.beans.factory.support;
  */
 
 import org.litespring.beans.BeanDefinition;
+import org.litespring.beans.ConstructorArgument;
 import org.litespring.beans.PropertyValue;
 
 import java.util.ArrayList;
@@ -52,6 +53,14 @@ public class GenericBeanDefinition implements BeanDefinition {
 
     public List<PropertyValue> getPropertyValues() {
         return propertyValues;
+    }
+
+    public ConstructorArgument getConstructorArgument() {
+        return null;
+    }
+
+    public String getID() {
+        return null;
     }
 
 }
