@@ -8,6 +8,7 @@ import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.ConstructorArgument;
 import org.litespring.beans.ValueHolder;
 import org.litespring.beans.factory.config.RuntimeBeanReference;
+import org.litespring.beans.factory.config.TypedStringValue;
 import org.litespring.beans.factory.support.DefaultBeanFactory;
 import org.litespring.beans.factory.xml.XMLBeanDefinitionReader;
 import org.litespring.core.io.ClassPathResource;
@@ -37,6 +38,9 @@ public class BeanDefinitionTestV3 {
         //argument是有顺序的
         RuntimeBeanReference reference1 = (RuntimeBeanReference) valueHolders.get(0).getValue();
         Assert.assertEquals("accountDao",reference1.getBeanName());
+
+        TypedStringValue typedStringValue = (TypedStringValue) valueHolders.get(2).getValue();
+        Assert.assertEquals("1",typedStringValue.getValue());
 
 
     }

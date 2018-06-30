@@ -60,15 +60,21 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     }
 
     private Object instantiateBean(BeanDefinition beanDefinition){
-        ClassLoader loader = getBeanClassLoader();
-        String beanClassName = beanDefinition.getBeanClassName();
-        try {
-            Class<?> clazz = loader.loadClass(beanClassName);//将指定的一个类加载到内存中，并获取到这个类的class文件
-            return clazz.newInstance();//目前只支持无参构造
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new BeanCreationException("create bean for " + beanClassName + " accure error ");
+        if(beanDefinition.hasConstructorArgumentValues()){
+            ConstructorResolver resolver = new ConstructorResolver(this);
+            return resolver.autowireConstructor(beanDefinition);
+        }else{
+            ClassLoader loader = getBeanClassLoader();
+            String beanClassName = beanDefinition.getBeanClassName();
+            try {
+                Class<?> clazz = loader.loadClass(beanClassName);//将指定的一个类加载到内存中，并获取到这个类的class文件
+                return clazz.newInstance();//目前只支持无参构造
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new BeanCreationException("create bean for " + beanClassName + " accure error ");
+            }
         }
+
     }
 
     //setter注入

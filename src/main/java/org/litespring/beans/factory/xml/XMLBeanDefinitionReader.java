@@ -11,6 +11,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.PropertyValue;
+import org.litespring.beans.ValueHolder;
 import org.litespring.beans.factory.BeanDefinitionStoreException;
 import org.litespring.beans.factory.config.RuntimeBeanReference;
 import org.litespring.beans.factory.config.TypedStringValue;
@@ -108,8 +109,23 @@ public class XMLBeanDefinitionReader {
     }
 
     private void parseConstructorArgElement(Element ele, BeanDefinition bd) {
-
-
+        String ref = ele.attributeValue(REF_ATTRIBUTE);
+        String value = ele.attributeValue(VALUE_ATTRIBUTE);
+        ValueHolder originValue = null;
+        if(ref!=null){
+            String refName = ele.attributeValue(REF_ATTRIBUTE);
+            if(!StringUtils.hasText(refName)){
+                logger.error(" contains empty 'ref' attribute");//仅仅只是输出了一条日志，因为不会一个prperty加载出错，使整个程序崩溃
+            }
+            originValue = new ValueHolder(new RuntimeBeanReference(refName));
+        }else if(value!=null){
+            String cvalue = ele.attributeValue(VALUE_ATTRIBUTE);
+            if(!StringUtils.hasText(cvalue)){
+                logger.error(" contains empty 'value' attribute");
+            }
+            originValue = new ValueHolder(new TypedStringValue(cvalue));
+        }
+        bd.getConstructorArgument().addArgumentValue(originValue);
     }
 
     public void parsePropertyElements(Element beanElem, BeanDefinition bd){

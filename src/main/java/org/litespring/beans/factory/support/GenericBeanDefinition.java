@@ -23,6 +23,7 @@ public class GenericBeanDefinition implements BeanDefinition {
     private boolean singleton = true;
     private boolean prototype = false;
     private List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
+    private ConstructorArgument constructorArgument = new ConstructorArgument();
 
     public GenericBeanDefinition(String beanId, String beanClassName) {
         this.beanId = beanId;
@@ -56,11 +57,15 @@ public class GenericBeanDefinition implements BeanDefinition {
     }
 
     public ConstructorArgument getConstructorArgument() {
-        return null;
+        return constructorArgument;
     }
 
     public String getID() {
-        return null;
+        return beanId;
+    }
+
+    public boolean hasConstructorArgumentValues() {
+        return !getConstructorArgument().isEmpty();
     }
 
 }

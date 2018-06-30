@@ -30,7 +30,6 @@ public class ConstructorResolverTest {
         ConstructorResolver resolver = new ConstructorResolver(factory);
         PetStoreService petStoreService = (PetStoreService) resolver.autowireConstructor(bd);
 
-
         Assert.assertEquals(1,petStoreService.getVersion());
     }
 }
