@@ -47,6 +47,10 @@ public class XMLBeanDefinitionReader {
 
     public static final String VALUE_ATTRIBUTE = "value";
 
+    public static final String CONSTRUCTOR_ARG_ELEMENT = "constructor-arg";
+
+    public static final String TYPE_ATTRIBUTE = "type";
+
 
     BeanDefinitionRegistry registry;
    // protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -74,7 +78,10 @@ public class XMLBeanDefinitionReader {
                     if(scope != null){
                         bd.setScope(scope);
                     }
-                    parsePropertyElement(ele,bd);
+                    //解析构造器
+                    parseConstructorArgElements(ele,bd);
+                    //解析property
+                    parsePropertyElements(ele,bd);
                     registry.registerBeanDefinition(beanId,bd);//不断的调用registerDefinition，将解析出来的beanDefinition放到beanFactory中
                 }
         } catch (Exception e) {
@@ -91,22 +98,36 @@ public class XMLBeanDefinitionReader {
         }
     }
 
-    public void parsePropertyElement(Element beanElem, BeanDefinition bd){
-        Iterator iterator = beanElem.elementIterator(PROPERTY_ELEMENT);
+    private void parseConstructorArgElements(Element beanEle, BeanDefinition bd) {
+        Iterator<Element> constructIter = beanEle.elementIterator(CONSTRUCTOR_ARG_ELEMENT);
+        while (constructIter.hasNext()){
+            Element ele = constructIter.next();
+            parseConstructorArgElement(ele,bd);
+        }
+
+    }
+
+    private void parseConstructorArgElement(Element ele, BeanDefinition bd) {
+
+
+    }
+
+    public void parsePropertyElements(Element beanElem, BeanDefinition bd){
+        Iterator<Element> iterator = beanElem.elementIterator(PROPERTY_ELEMENT);
         while (iterator.hasNext()){
-            Element propElem = (Element) iterator.next();
+            Element propElem =  iterator.next();
             String propertyName = propElem.attributeValue(NAME_ATTRIBUTE);
             if(!StringUtils.hasLength(propertyName)) {
                 logger.fatal("Tag 'property' must have a 'name' attribute");
                 return;
             }
-            Object val = parsePropertyValue(propElem,bd,propertyName);
+            Object val = parsePropertyElement(propElem,bd,propertyName);
             PropertyValue pv = new PropertyValue(propertyName,val);
             bd.getPropertyValues().add(pv);
         }
     }
 
-    public Object parsePropertyValue(Element ele, BeanDefinition bd, String propertyName){
+    public Object parsePropertyElement(Element ele, BeanDefinition bd, String propertyName){
         //如果property标签中没有name属性的话，就说明这个property为构造器参数。
         String elementName = (propertyName != null) ? "<property> element for property '" + propertyName + "'":
                 "<constructor-arg> element";
