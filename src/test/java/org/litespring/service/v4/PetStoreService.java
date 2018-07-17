@@ -19,4 +19,19 @@ public class PetStoreService {
     @Autowired
     private AccountDao accountDao;
 
+    public ItemDao getItemDao() {
+        return itemDao;
+    }
+
+    public void setItemDao(ItemDao itemDao) {
+        this.itemDao = itemDao;
+    }
+
+    public AccountDao getAccountDao() {
+        return accountDao;
+    }
+
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
 }
