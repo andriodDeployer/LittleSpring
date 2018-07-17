@@ -25,6 +25,8 @@ public class AnnotationMetadataReadingVisitor extends ClassMetadataReadingVisito
 
     public AnnotationMetadataReadingVisitor() {super();}
 
+    //如果解析的类中(不是对象)有注解的话，有一个注解调用一次这个方法。classReader拿到这个方法的返回值(一个AnnotationVisitor)后，
+    // 在解析annotiation的过程中，在调用annotationVisitor的相关方法,例如在解析annotation时，对于每个attribute会调用一次annotationVisitor的visit方法。
     @Override
     public AnnotationVisitor visitAnnotation(final String desc, boolean visible) {
         String className = Type.getType(desc).getClassName();

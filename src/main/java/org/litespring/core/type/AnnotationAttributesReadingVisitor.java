@@ -24,10 +24,16 @@ public class AnnotationAttributesReadingVisitor extends AnnotationVisitor {
         this.attributeMap = attributesMap;
     }
 
-
+    //当一个annotation被解析完之后，调用一次visitEnd，那个这个visitor也就是没有用了，一个annotation对应一个annotationVisitor对象
     @Override
     public void visitEnd() {
         super.visitEnd();
         this.attributeMap.put(this.annotationType,this.attributes);
+    }
+
+    //每解析一个annotatio的attribute，都会调用一次visit方法。
+    @Override
+    public void visit(String attributeName, Object attributeValue) {
+        this.attributes.put(attributeName,attributeValue);
     }
 }
