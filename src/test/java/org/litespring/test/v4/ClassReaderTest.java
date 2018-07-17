@@ -5,6 +5,7 @@ package org.litespring.test.v4;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.litespring.core.annotation.AnnotationAttributes;
 import org.litespring.core.io.ClassPathResource;
 import org.litespring.core.type.AnnotationMetadataReadingVisitor;
 import org.litespring.core.type.classreading.ClassMetadataReadingVisitor;
@@ -41,6 +42,15 @@ public class ClassReaderTest {
 
         AnnotationMetadataReadingVisitor visitor = new AnnotationMetadataReadingVisitor();
         reader.accept(visitor, ClassReader.SKIP_DEBUG);
+
+        String annotationName = "org.litespring.stereotype.Component";
+        Assert.assertTrue(visitor.hasAnnotation(annotationName));
+
+
+        AnnotationAttributes attributes = visitor.getAnnotationAttributes(annotationName);
+
+        Assert.assertEquals("petstore",attributes.getString("value"));
+
 
     }
 

@@ -33,4 +33,12 @@ public class AnnotationMetadataReadingVisitor extends ClassMetadataReadingVisito
         this.annotationSet.add(className);
         return new AnnotationAttributesReadingVisitor(className,attributesMap);
     }
+
+    public AnnotationAttributes getAnnotationAttributes(String annotationName){
+        return attributesMap.get(annotationName);
+    }
+
+    public boolean hasAnnotation(String annotationName){
+        return annotationSet.contains(annotationName);
+    }
 }

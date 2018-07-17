@@ -14,6 +14,7 @@ import static java.lang.String.format;
 
 /**
  * 一个注解的所有字段与对应的值，采用Map数据结构进行存放
+ * AnnotationAttributes本质上是一个map，只不过提供了恭维丰富的接口可以从map中取出指定类型的数据
  */
 public class AnnotationAttributes extends LinkedHashMap<String,Object>{
 
