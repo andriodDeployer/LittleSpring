@@ -15,12 +15,17 @@ import java.io.InputStream;
 
 
 public class FileSystemResource implements Resource {
-    private String path;
     private File file;
+
     public FileSystemResource(String path) {
         Assert.notNull(path,"path must not null");
-        this.path = path;
         this.file = new File(path);
+    }
+
+
+    public FileSystemResource(File file) {
+        Assert.notNull(file,"file must not null");
+        this.file = file;
     }
 
 
