@@ -3,10 +3,10 @@ package org.litespring.test.v4;
  * Created by DELL on 2018/7/17.
  */
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.litespring.core.io.ClassPathResource;
-import org.springframework.asm.ClassReader;
+import org.litespring.core.type.classreading.ClassMetadataReadingVisitor;
+import org.objectweb.asm.ClassReader;
 
 import java.io.IOException;
 
