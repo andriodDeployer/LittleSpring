@@ -52,7 +52,7 @@ public class ClassMetadataReadingVisitor extends ClassVisitor {
         return super.visitMethod(i, s, s1, s2, strings);
     }
 
-    //当classReader解析class字节码中的字段时，每解析一个，就会被调用一次。
+    //当classReader解析class字节码中的字段，每解析一个，就会被调用一次
     @Override
     public FieldVisitor visitField(int i, String s, String s1, String s2, Object o) {
         return super.visitField(i, s, s1, s2, o);
