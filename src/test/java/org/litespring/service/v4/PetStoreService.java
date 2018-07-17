@@ -5,12 +5,13 @@ package org.litespring.service.v4;/**
 import org.litespring.beans.factory.annotation.Autowired;
 import org.litespring.dao.v2.AccountDao;
 import org.litespring.dao.v4.ItemDao;
+import org.litespring.stereotype.Component;
 
 /**
  * user is lwb
  **/
 
-
+@Component
 public class PetStoreService {
 
     @Autowired

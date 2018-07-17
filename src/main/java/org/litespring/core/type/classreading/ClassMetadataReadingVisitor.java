@@ -5,8 +5,7 @@ package org.litespring.core.type.classreading;
 
 
 import org.litespring.util.ClassUtils;
-import org.springframework.asm.ClassVisitor;
-import org.springframework.asm.Opcodes;
+import org.springframework.asm.*;
 
 /**
  * user is
@@ -24,10 +23,11 @@ public class ClassMetadataReadingVisitor extends ClassVisitor {
     private boolean isAbstract;
     private boolean isFinal;
 
-    public ClassMetadataReadingVisitor(int i) {
-        super(i);
+    public ClassMetadataReadingVisitor() {
+        super(SpringAsmInfo.ASM_VERSION);
     }
 
+    //当classReader读取到class的元数据信息时，进行调用
     @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         this.version = version;
@@ -44,6 +44,18 @@ public class ClassMetadataReadingVisitor extends ClassVisitor {
         for(int i=0;i<interfaces.length;i++){
             this.interfaces[i] = ClassUtils.convertResourcePathToClassName(interfaces[i]);
         }
+    }
+
+    //当classReader解析class字节码中的方法，每解析一个，就会被调用一次
+    @Override
+    public MethodVisitor visitMethod(int i, String s, String s1, String s2, String[] strings) {
+        return super.visitMethod(i, s, s1, s2, strings);
+    }
+
+    //当classReader解析class字节码中的字段时，每解析一个，就会被调用一次。
+    @Override
+    public FieldVisitor visitField(int i, String s, String s1, String s2, Object o) {
+        return super.visitField(i, s, s1, s2, o);
     }
 
     public int getVersion() {
