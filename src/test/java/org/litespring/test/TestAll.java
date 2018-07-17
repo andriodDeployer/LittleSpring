@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.litespring.test.v1.TestAll_v1;
 import org.litespring.test.v2.TestAll_v2;
+import org.litespring.test.v3.TestAll_v3;
 
 /**
  * user is lwb
@@ -14,7 +15,8 @@ import org.litespring.test.v2.TestAll_v2;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         TestAll_v2.class,
-        TestAll_v1.class
+        TestAll_v1.class,
+        TestAll_v3.class
 })
 public class TestAll {
 }
