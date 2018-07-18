@@ -6,8 +6,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.factory.support.DefaultBeanFactory;
-import org.litespring.context.annotation.ClassPathBeanDefinitionScanner;
+import org.litespring.beans.factory.xml.XMLBeanDefinitionReader;
 import org.litespring.context.annotation.ScannedGenericBeanDefinition;
+import org.litespring.core.io.ClassPathResource;
+import org.litespring.core.io.Resource;
 import org.litespring.core.type.AnnotationMetadata;
 import org.litespring.stereotype.Component;
 
@@ -16,18 +18,17 @@ import org.litespring.stereotype.Component;
  **/
 
 
-public class ClassPathBeanDefinitionScannerTest {
+public class XmlBeanDefinitionReaderTest {
 
     @Test
     public void testParseScanedBean(){
 
         DefaultBeanFactory factory = new DefaultBeanFactory();
-        String basePackage = "org.";
+        XMLBeanDefinitionReader reader = new XMLBeanDefinitionReader(factory);
+        Resource resource = new ClassPathResource("petstore-v4.xml");
+        reader.loadBeanDefinitions(resource);
 
-        ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(factory);
-        scanner.doScan(basePackage);
         String annotation = Component.class.getName();
-
         {
             BeanDefinition bd = factory.getBeanDefinition("petStore");
             Assert.assertNotNull(bd);
@@ -56,4 +57,7 @@ public class ClassPathBeanDefinitionScannerTest {
         }
 
     }
+
+
+
 }
