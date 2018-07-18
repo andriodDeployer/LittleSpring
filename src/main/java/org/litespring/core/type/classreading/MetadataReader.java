@@ -12,9 +12,8 @@ public interface MetadataReader {
     //获取指定class文件的resouce
     Resource getResource();
 
+    ClassMetadata getClassMetadata();//class的metadata
 
-    ClassMetadata getClassMetadata();
-
-    AnnotationMetadata getAnnotationMetadata();
+    AnnotationMetadata getAnnotationMetadata();//annotation的metadata
 
 }

@@ -21,12 +21,16 @@ public class MetadataReaderTest {
 
     @Test
     public void testGetMetadata() throws IOException{
-        ClassPathResource resource = new ClassPathResource("");
+        ClassPathResource resource = new ClassPathResource("org/litespring/service/v4/PetStoreService.class");
         MetadataReader reader = new SimpleMetadataReader(resource);
 
         AnnotationMetadata amd = reader.getAnnotationMetadata();
         String annotation = Component.class.getName();
+
         Assert.assertTrue(amd.hasAnnotation(annotation));
+        Assert.assertEquals("org.litespring.service.v4.PetStoreService",amd.getClassName());
+        Assert.assertEquals("petstore",amd.getAnnotationAttributes(annotation).getString("value"));
+
 
 
 

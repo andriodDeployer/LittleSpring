@@ -40,6 +40,7 @@ public class SimpleMetadataReader implements MetadataReader {
         this.annotationMetadata = visitor;
         this.classMetadata = visitor;
         this.resource = resource;
+
     }
 
     public Resource getResource() {
