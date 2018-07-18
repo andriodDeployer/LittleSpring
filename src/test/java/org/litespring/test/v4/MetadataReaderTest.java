@@ -30,12 +30,6 @@ public class MetadataReaderTest {
         Assert.assertTrue(amd.hasAnnotation(annotation));
         Assert.assertEquals("org.litespring.service.v4.PetStoreService",amd.getClassName());
         Assert.assertEquals("petstore",amd.getAnnotationAttributes(annotation).getString("value"));
-
-
-
-
-
-
     }
 
 }

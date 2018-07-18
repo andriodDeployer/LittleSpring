@@ -2,7 +2,6 @@ package org.litespring.core.type.classreading;/**
  * Created by DELL on 2018/7/18.
  */
 
-import org.litespring.core.io.ClassPathResource;
 import org.litespring.core.io.Resource;
 import org.litespring.core.type.AnnotationMetadata;
 import org.litespring.core.type.AnnotationMetadataReadingVisitor;
@@ -23,7 +22,7 @@ public class SimpleMetadataReader implements MetadataReader {
     private ClassMetadata classMetadata;
     private AnnotationMetadata annotationMetadata;
 
-    public SimpleMetadataReader(ClassPathResource resource) throws IOException {
+    public SimpleMetadataReader(Resource resource) throws IOException {
         InputStream is =  new BufferedInputStream(resource.getInputStream());
         ClassReader clasReader;
 

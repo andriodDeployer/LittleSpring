@@ -25,13 +25,20 @@ public class GenericBeanDefinition implements BeanDefinition {
     private List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
     private ConstructorArgument constructorArgument = new ConstructorArgument();
 
-    public GenericBeanDefinition(String beanId, String beanClassName) {
+    public  GenericBeanDefinition(String beanId, String beanClassName) {
         this.beanId = beanId;
         this.beanClassName = beanClassName;
     }
 
+    public GenericBeanDefinition() {
+    }
+
     public String getBeanClassName() {
         return beanClassName;
+    }
+
+    public void setBeanClassName(String beanClassName){
+        this.beanClassName = beanClassName;
     }
 
     public boolean isSingleton() {
