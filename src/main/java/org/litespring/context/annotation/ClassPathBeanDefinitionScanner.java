@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.factory.support.BeanDefinitionRegistry;
+import org.litespring.beans.factory.support.BeanNameGenerator;
 import org.litespring.core.io.Resource;
 import org.litespring.core.io.support.PackageResouceLoader;
 import org.litespring.core.type.AnnotationMetadata;
@@ -23,13 +24,15 @@ import java.util.Set;
  **/
 
 
-public class ClassPathDefinitionScanner {
+public class ClassPathBeanDefinitionScanner {
 
     private final BeanDefinitionRegistry registry;//这个实例主要用来查询和存放beanDefinatione，具体从哪查以及存放到哪去，就要看这个registry的具体实现了
     private PackageResouceLoader resouceLoader = new PackageResouceLoader();
     protected final Log logger = LogFactory.getLog(getClass());
 
-    public ClassPathDefinitionScanner(BeanDefinitionRegistry registry){
+    private BeanNameGenerator beanNameGenerator = new AnnotationBeanNameGenerator();
+
+    public ClassPathBeanDefinitionScanner(BeanDefinitionRegistry registry){
         this.registry = registry;
     }
 
@@ -40,9 +43,9 @@ public class ClassPathDefinitionScanner {
             Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
             for(BeanDefinition bd : candidates){
                 beanDefinitions.add(bd);
+                registry.registerBeanDefinition(bd.getID(),bd);
             }
         }
-
         return beanDefinitions;
     }
 
@@ -56,11 +59,11 @@ public class ClassPathDefinitionScanner {
                 AnnotationMetadata annotationMetadata = metataReader.getAnnotationMetadata();
                 if (annotationMetadata.hasAnnotation(Component.class.getName())) {
                     ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(annotationMetadata);
+                    String beanId = this.beanNameGenerator.generateBeanName(sbd,registry);
+                    sbd.setID(beanId);
                     candidates.add(sbd);
                 }
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

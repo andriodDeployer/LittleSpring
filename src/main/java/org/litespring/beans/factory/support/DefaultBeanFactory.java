@@ -10,6 +10,7 @@ import org.litespring.beans.SimpleTypeConverter;
 import org.litespring.beans.TypeConverter;
 import org.litespring.beans.factory.BeanCreationException;
 import org.litespring.beans.factory.config.ConfigurableBeanFactory;
+import org.litespring.util.Assert;
 import org.litespring.util.ClassUtils;
 
 import java.beans.BeanInfo;
@@ -141,6 +142,7 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     }
 
     public void registerBeanDefinition(String beanId, BeanDefinition bd) {
+        Assert.notNull(beanId,"beanId cannot be null");
         beanDefinitionMap.put(beanId,bd);
 
     }

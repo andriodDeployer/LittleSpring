@@ -18,6 +18,12 @@ public class ScannedGenericBeanDefinition extends GenericBeanDefinition implemen
     public ScannedGenericBeanDefinition(AnnotationMetadata metadata){
         this.metadata = metadata;
         setBeanClassName(metadata.getClassName());
+        //String id = metadata.getAnnotationAttributes(Component.class.getName()).getString("value");
+        //setID(id);
 
+    }
+
+    public AnnotationMetadata getMetadata() {
+        return metadata;
     }
 }

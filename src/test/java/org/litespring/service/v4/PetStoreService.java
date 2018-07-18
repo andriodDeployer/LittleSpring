@@ -11,7 +11,7 @@ import org.litespring.stereotype.Component;
  * user is lwb
  **/
 
-@Component(value = "petstore")
+@Component(value = "petStore")
 public class PetStoreService {
 
     @Autowired

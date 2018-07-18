@@ -44,8 +44,8 @@ public class ClassReaderTest {
         reader.accept(visitor, ClassReader.SKIP_DEBUG);
 
         String annotationName = "org.litespring.stereotype.Component";
-        Assert.assertTrue(visitor.hasAnnotation(annotationName));
 
+        Assert.assertTrue(visitor.hasAnnotation(annotationName));
 
         AnnotationAttributes attributes = visitor.getAnnotationAttributes(annotationName);
 

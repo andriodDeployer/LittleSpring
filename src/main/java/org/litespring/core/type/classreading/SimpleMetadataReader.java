@@ -24,17 +24,17 @@ public class SimpleMetadataReader implements MetadataReader {
 
     public SimpleMetadataReader(Resource resource) throws IOException {
         InputStream is =  new BufferedInputStream(resource.getInputStream());
-        ClassReader clasReader;
+        ClassReader classReader;
 
         try {
-            clasReader = new ClassReader(is);
+            classReader = new ClassReader(is);
         }
         finally {
             is.close();
         }
 
         AnnotationMetadataReadingVisitor visitor = new AnnotationMetadataReadingVisitor();
-        clasReader.accept(visitor,ClassReader.SKIP_DEBUG);
+        classReader.accept(visitor,ClassReader.SKIP_DEBUG);
 
         this.annotationMetadata = visitor;
         this.classMetadata = visitor;

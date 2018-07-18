@@ -9,7 +9,7 @@ import org.litespring.stereotype.Component;
  **/
 
 
-@Component
+@Component()
 public class AccountDao {
 
 }

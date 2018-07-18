@@ -8,6 +8,6 @@ import org.litespring.stereotype.Component;
  * user is lwb
  **/
 
-@Component
+@Component(value = "itemDao")
 public class ItemDao {
 }
