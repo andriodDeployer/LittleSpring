@@ -21,8 +21,6 @@ public class AnnotationMetadataReadingVisitor extends ClassMetadataReadingVisito
     private final Set<String> annotationSet = new LinkedHashSet<String>(4);
     private final Map<String, AnnotationAttributes> attributesMap = new LinkedHashMap<String,AnnotationAttributes>(4);
 
-
-
     public AnnotationMetadataReadingVisitor() {super();}
 
     //如果解析的类中(不是对象)有注解的话，有一个注解调用一次这个方法。classReader拿到这个方法的返回值(一个AnnotationVisitor)后，

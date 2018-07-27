@@ -13,5 +13,7 @@
 
         </context:component-scan>
 
+        <bean id="itemDao" class="org.litespring.dao.v3.ItemDao"></bean>
+
 
 </beans>
