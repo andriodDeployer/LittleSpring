@@ -39,7 +39,7 @@ public class GenericBeanDefinition implements BeanDefinition {
     }
 
     public boolean hasBeanClass() {
-        return beanClass == null;
+        return !(beanClass == null);
     }
 
     public Class<?> getBeanClass() {

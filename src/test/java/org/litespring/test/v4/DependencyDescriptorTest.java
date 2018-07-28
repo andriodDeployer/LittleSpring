@@ -9,7 +9,7 @@ import org.litespring.beans.factory.support.DefaultBeanFactory;
 import org.litespring.beans.factory.xml.XMLBeanDefinitionReader;
 import org.litespring.core.io.ClassPathResource;
 import org.litespring.core.io.Resource;
-import org.litespring.dao.v2.AccountDao;
+import org.litespring.dao.v4.AccountDao;
 import org.litespring.service.v4.PetStoreService;
 
 import java.lang.reflect.Field;
@@ -38,6 +38,7 @@ public class DependencyDescriptorTest {
         Field f = PetStoreService.class.getDeclaredField("accountDao");
         DependencyDescriptor descriptor = new DependencyDescriptor(f,true);
         Object o = factory.resolveDependency(descriptor);
+        Assert.assertNotNull(o);
         Assert.assertTrue(o instanceof AccountDao);
 
 
