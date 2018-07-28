@@ -14,6 +14,9 @@ public interface BeanDefinition {
     static final String SCOPE_PROTOTYPE = "prototype";
     static final String SCOPE_DEFAULT = SCOPE_SINGLETON;
     String getBeanClassName() ;
+    boolean hasBeanClass();
+    Class<?> getBeanClass();
+    Class<?> resoveBeanClass(ClassLoader classLoader) throws ClassNotFoundException;
 
     boolean isSingleton();
 
