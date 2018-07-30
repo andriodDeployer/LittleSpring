@@ -12,6 +12,10 @@ import java.lang.reflect.Field;
  * user is
  **/
 
+/**
+ * 对依赖的信息进行封装（由于依赖的信息很多很复杂，将这些信息封装在一个类中，在解析的过程中，只需要面向这个类，封装了变化）
+ * 在解析依赖的时候，只需要面向这一个类即可。
+ */
 
 public class DependencyDescriptor {
 
