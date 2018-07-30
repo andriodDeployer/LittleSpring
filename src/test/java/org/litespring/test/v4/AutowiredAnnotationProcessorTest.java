@@ -16,7 +16,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 
-
 public class AutowiredAnnotationProcessorTest {
 	AccountDao accountDao = new AccountDao();
 	ItemDao itemDao = new ItemDao();

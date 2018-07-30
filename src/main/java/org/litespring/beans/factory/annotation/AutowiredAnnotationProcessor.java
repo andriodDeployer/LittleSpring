@@ -3,6 +3,7 @@ package org.litespring.beans.factory.annotation;
 import org.litespring.beans.BeansException;
 import org.litespring.beans.factory.BeanCreationException;
 import org.litespring.beans.factory.config.AutowireCapableBeanFactory;
+import org.litespring.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.litespring.core.annotation.AnnotationUtils;
 import org.litespring.util.ReflectionUtils;
 
@@ -15,8 +16,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-
-public class AutowiredAnnotationProcessor  {
+//这个类的作用是对指定的类需要注入的字段，进行标记，并进行注入。说白了就是对property进行初始化
+public class AutowiredAnnotationProcessor implements InstantiationAwareBeanPostProcessor {
 	
 	private AutowireCapableBeanFactory beanFactory;
 	private String requiredParameterName = "required";
@@ -28,9 +29,9 @@ public class AutowiredAnnotationProcessor  {
 	public AutowiredAnnotationProcessor(){
 		this.autowiredAnnotationTypes.add(Autowired.class);
 	}
-	
+
+	//通过class找到指定的的field(被autowired修饰的字段)，将指定的field封装成InjectionElement，最后封装成InjectionMetadata。
 	public InjectionMetadata buildAutowiringMetadata(Class<?> clazz) {
-		
 		LinkedList<InjectionElement> elements = new LinkedList<InjectionElement>();
 		Class<?> targetClass = clazz;
 
@@ -40,7 +41,6 @@ public class AutowiredAnnotationProcessor  {
 				Annotation ann = findAutowiredAnnotation(field);//获取field上指定注解类型的注解。这里主要用来判断一个字段上是否有Autowired注解，目前只对带有antowired注解的字段进行注入。
 				if (ann != null) {
 					if (Modifier.isStatic(field.getModifiers())) {
-						
 						continue;
 					}
 					boolean required = determineRequiredStatus(ann);
@@ -88,30 +88,37 @@ public class AutowiredAnnotationProcessor  {
 	public void setBeanFactory(AutowireCapableBeanFactory beanFactory){
 		this.beanFactory = beanFactory;
 	}
+
+
+
+
 	public Object beforeInitialization(Object bean, String beanName) throws BeansException {
-		//do nothing
-		return bean;
+		//TODO do nothing
+		return null;
 	}
-	public Object afterInitialization(Object bean, String beanName) throws BeansException {
-		// do nothing
-		return bean;
+
+	public Object afterInitializeation(Object bean, String beanName) throws BeansException {
+		//TODO do nothing
+		return null;
 	}
+
 	public Object beforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+		//TODO do nothing
 		return null;
 	}
 
 	public boolean afterInstantiation(Object bean, String beanName) throws BeansException {
-		// do nothing
-		return true;
+		//TODO do noting
+		return false;
 	}
 
-	public void postProcessPropertyValues(Object bean, String beanName) throws BeansException {		
-		InjectionMetadata metadata = buildAutowiringMetadata(bean.getClass());
+	public void postProcessorPropertyValues(Object bean, String beanName) throws BeansException {
 		try {
+			InjectionMetadata metadata = buildAutowiringMetadata(bean.getClass());
 			metadata.inject(bean);
+		} catch (Throwable ex){
+			throw new BeanCreationException(beanName,"Injection of autowired dependencies failed");
 		}
-		catch (Throwable ex) {
-			throw new BeanCreationException(beanName, "Injection of autowired dependencies failed", ex);
-		}		
+
 	}
 }
