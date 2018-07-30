@@ -6,6 +6,8 @@ package org.litespring.beans.factory.annotation;/**
  * user is
  **/
 
+import java.util.List;
+
 /**
  * 封装了一个类的所有injectionElement
  */

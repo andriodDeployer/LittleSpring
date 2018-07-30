@@ -4,6 +4,7 @@ package org.litespring.test.v4;/**
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.litespring.beans.factory.annotation.AutowiredFieldElement;
 import org.litespring.beans.factory.annotation.InjectionElement;
 import org.litespring.beans.factory.annotation.InjectionMetadata;
 import org.litespring.beans.factory.support.DefaultBeanFactory;
@@ -40,7 +41,7 @@ public class InjectionMetadataTest {
 
         Class<?> clz = PetStoreService.class;
         //一个类需要注入的依赖全部都放在一个列表中
-        LinkedList<InjectioinElement> injectioinElements = new LinkedList<InjectioinElement>();
+        LinkedList<InjectionElement> injectioinElements = new LinkedList<InjectionElement>();
 
         {
             Field f = PetStoreService.class.getDeclaredField("accountDao");

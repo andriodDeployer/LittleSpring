@@ -12,6 +12,7 @@ import java.lang.reflect.Member;
 
 /**
  * InjectionElement是对DependencyDescriptor的一种封装，
+ * 变化抽象，将需要的注入的类/方法/字段的注入，进行抽象，具体针对不同的部分的注入，进行不同的实现
  */
 public abstract class InjectionElement {
 
