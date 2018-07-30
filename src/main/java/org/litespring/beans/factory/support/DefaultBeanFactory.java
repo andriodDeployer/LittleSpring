@@ -9,8 +9,10 @@ import org.litespring.beans.PropertyValue;
 import org.litespring.beans.SimpleTypeConverter;
 import org.litespring.beans.TypeConverter;
 import org.litespring.beans.factory.BeanCreationException;
+import org.litespring.beans.factory.config.BeanPostProcessor;
 import org.litespring.beans.factory.config.ConfigurableBeanFactory;
 import org.litespring.beans.factory.config.DependencyDescriptor;
+import org.litespring.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.litespring.util.Assert;
 import org.litespring.util.ClassUtils;
 
@@ -18,6 +20,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,7 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
 
     private final Map<String,BeanDefinition> beanDefinitionMap = new HashMap<String, BeanDefinition>();
     private ClassLoader classLoader;
+    List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 
     public DefaultBeanFactory(){}
 
@@ -113,6 +117,14 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     }
 
     public void populateBeanUseCommonBeanUtils(BeanDefinition bd,Object bean){
+        for(BeanPostProcessor processor : this.getBeanPostProcessor()){
+            if(processor instanceof InstantiationAwareBeanPostProcessor){
+                ((InstantiationAwareBeanPostProcessor)processor).postProcessorPropertyValues(bean,bd.getBeanClassName());
+            }
+        }
+
+
+
         List<PropertyValue> propertyValues = bd.getPropertyValues();
 
         if(propertyValues == null || propertyValues.isEmpty()){
@@ -155,6 +167,14 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
 
     public ClassLoader getBeanClassLoader() {
         return (classLoader != null ? classLoader : ClassUtils.getDefaultClassLoader());
+    }
+
+    public void addBeanPostProcessor(BeanPostProcessor processor) {
+        this.beanPostProcessors.add(processor);
+    }
+
+    public List<BeanPostProcessor> getBeanPostProcessor() {
+        return this.beanPostProcessors;
     }
 
     public Object resolveDependency(DependencyDescriptor descriptor) {

@@ -3,6 +3,8 @@ package org.litespring.context.support;
  * Created by DELL on 2018/6/20.
  */
 
+import org.litespring.beans.factory.annotation.AutowiredAnnotationProcessor;
+import org.litespring.beans.factory.config.ConfigurableBeanFactory;
 import org.litespring.beans.factory.support.DefaultBeanFactory;
 import org.litespring.beans.factory.xml.XMLBeanDefinitionReader;
 import org.litespring.context.ApplicationContext;
@@ -32,6 +34,7 @@ public abstract class AbstractApplicationContext implements ApplicationContext{
         Resource resource = getResource(path);//模板方法
         reader.loadBeanDefinitions(resource);
         factory.setBeanClassLoader(getBeanClassLoader());
+        registerBeanPostProcessor(factory);
 
     }
 
@@ -47,5 +50,11 @@ public abstract class AbstractApplicationContext implements ApplicationContext{
 
     public ClassLoader getBeanClassLoader() {
         return (classLoader != null ? classLoader : ClassUtils.getDefaultClassLoader());
+    }
+
+    protected void registerBeanPostProcessor(ConfigurableBeanFactory factory){
+        AutowiredAnnotationProcessor processor = new AutowiredAnnotationProcessor();
+        processor.setBeanFactory(factory);
+        factory.addBeanPostProcessor(processor);
     }
 }

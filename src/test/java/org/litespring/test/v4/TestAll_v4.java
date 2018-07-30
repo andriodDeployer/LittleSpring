@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-       // ApplicationContextTest4.class,
+        ApplicationContextTest4.class,
         AutowiredAnnotationProcessorTest.class,
         ClassPathBeanDefinitionScannerTest.class,
         ClassReaderTest.class,
