@@ -20,6 +20,7 @@ import java.util.List;
 public class AutowiredAnnotationProcessorTest {
 	AccountDao accountDao = new AccountDao();
 	ItemDao itemDao = new ItemDao();
+	//模拟了factory从容器中根据类型获取对应实例的过程。
 	DefaultBeanFactory beanFactory = new DefaultBeanFactory(){
 		public Object resolveDependency(DependencyDescriptor descriptor){
 			if(descriptor.getDependencyType().equals(AccountDao.class)){
@@ -47,11 +48,8 @@ public class AutowiredAnnotationProcessorTest {
 		assertFieldExists(elements,"itemDao");
 		
 		PetStoreService petStore = new PetStoreService();
-		
 		injectionMetadata.inject(petStore);
-		
 		Assert.assertTrue(petStore.getAccountDao() instanceof AccountDao);
-		
 		Assert.assertTrue(petStore.getItemDao() instanceof ItemDao);
 	}
 	

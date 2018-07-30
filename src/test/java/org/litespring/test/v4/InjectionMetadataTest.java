@@ -53,8 +53,8 @@ public class InjectionMetadataTest {
             InjectionElement injectionElement = new AutowiredFieldElement(f,true,factory);
             injectioinElements.add(injectionElement);
         }
-
         InjectionMetadata metadata = new InjectionMetadata(clz,injectioinElements);
+
         PetStoreService petStoreService = new PetStoreService();
         metadata.inject(petStoreService);
 

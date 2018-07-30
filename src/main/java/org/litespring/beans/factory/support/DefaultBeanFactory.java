@@ -163,6 +163,7 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
             //确保已经加载过了
             resolveBeanClass(bd);
             Class<?> beanClass = bd.getBeanClass();
+
             //判断typeToMatch是否时beanClass的父类或者同类
             if(typeToMatch.isAssignableFrom(beanClass)){
                 return this.getBean(bd.getID());
