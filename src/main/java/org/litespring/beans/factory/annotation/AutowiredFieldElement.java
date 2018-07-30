@@ -27,7 +27,6 @@ public class AutowiredFieldElement extends InjectionElement {
     }
 
     public void inject(Object target) {
-
         Field field = this.getField();
         try{
             DependencyDescriptor descriptor = new DependencyDescriptor(field,this.required);
@@ -38,7 +37,6 @@ public class AutowiredFieldElement extends InjectionElement {
             }
         }catch (Throwable ex){
             throw new BeanCreationException("Could not autowire field: " + field, ex);
-
         }
     }
 }
