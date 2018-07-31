@@ -17,7 +17,7 @@ public class MessageTracker {
         TRACKER_MESSAGES.add(msg);
     }
 
-    public static void clearMsg(String msg){
+    public static void clearMsg(){
         TRACKER_MESSAGES.clear();
     }
 

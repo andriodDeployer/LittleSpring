@@ -46,12 +46,15 @@
             <version>1.9.3</version>
         </dependency>
 
+        <!-- 在spring实现的过程中，依赖了很多的第三方类库，但是仅仅只是在编译期，也就是说我们从网上下载spring中并不包含这些第三方放类库，如果要使用这些功能，需要我们引入这些spring依赖的类库才可以-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.13</version>
+        </dependency>
 
-        <!--<dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>3.1</version>
-        </dependency>-->
+
+
 
 
 
