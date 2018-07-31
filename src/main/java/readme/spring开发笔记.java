@@ -67,7 +67,7 @@ public class spring开发笔记 {
      这两种方式最终生成的新的class文件是一样的，只是产生的时间不同而已。编译期的aop产生的class文件个数少于运行期产生的class文件个数。因为编译期aop不产生新的class文件，是对原来的class文件做修改。
 
      在spring的实现过程中，虽然使用的时动态生成类的方式，但是仍然引用了aspectJ中的很多核心类和概念：
-        spring中的关于execution表达式的解析直接使用aspectJ中的相关类完成的。(所以spring依赖了aspectJ)
+        spring中的关于execution表达式语法结构，以及execution的解析直接使用aspectJ中的相关类完成的。(所以spring依赖了aspectJ)
         spring中仍然参考了aspectJ中的pointCut，JoinPoint，advice等概念。
 
 
