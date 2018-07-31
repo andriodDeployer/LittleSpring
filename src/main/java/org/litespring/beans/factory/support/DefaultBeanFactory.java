@@ -9,6 +9,7 @@ import org.litespring.beans.PropertyValue;
 import org.litespring.beans.SimpleTypeConverter;
 import org.litespring.beans.TypeConverter;
 import org.litespring.beans.factory.BeanCreationException;
+import org.litespring.beans.factory.NoSuchBeanDefinitionException;
 import org.litespring.beans.factory.config.BeanPostProcessor;
 import org.litespring.beans.factory.config.ConfigurableBeanFactory;
 import org.litespring.beans.factory.config.DependencyDescriptor;
@@ -56,6 +57,15 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
             return bean;
         }
         return createBean(bd);
+    }
+
+    public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
+        BeanDefinition beanDefinition = this.getBeanDefinition(name);
+        if(beanDefinition == null){
+            throw new NoSuchBeanDefinitionException(name);
+        }
+        resolveBeanClass(beanDefinition);
+        return beanDefinition.getBeanClass();
     }
 
     private Object createBean(BeanDefinition bd) {

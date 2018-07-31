@@ -3,6 +3,7 @@ package org.litespring.context.support;
  * Created by DELL on 2018/6/20.
  */
 
+import org.litespring.beans.factory.NoSuchBeanDefinitionException;
 import org.litespring.beans.factory.annotation.AutowiredAnnotationProcessor;
 import org.litespring.beans.factory.config.ConfigurableBeanFactory;
 import org.litespring.beans.factory.support.DefaultBeanFactory;
@@ -56,5 +57,9 @@ public abstract class AbstractApplicationContext implements ApplicationContext{
         AutowiredAnnotationProcessor processor = new AutowiredAnnotationProcessor();
         processor.setBeanFactory(factory);
         factory.addBeanPostProcessor(processor);
+    }
+
+    public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
+        return null;
     }
 }

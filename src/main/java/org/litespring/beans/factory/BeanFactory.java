@@ -9,6 +9,8 @@ package org.litespring.beans.factory;
 
 
 public interface BeanFactory {
-
+    //根据beanId获取对应的bean
     Object getBean(String beanId);
+    //根据beanName，获取到这个bean的类型
+    Class<?> getType(String name) throws NoSuchBeanDefinitionException;
 }
