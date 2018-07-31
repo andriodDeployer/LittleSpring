@@ -6,6 +6,7 @@ import org.litespring.beans.factory.annotation.Autowired;
 import org.litespring.dao.v5.AccountDao;
 import org.litespring.dao.v5.ItemDao;
 import org.litespring.stereotype.Component;
+import org.litespring.util.MessageTracker;
 
 /**
  * user is lwb
@@ -34,6 +35,8 @@ public class PetStoreService {
 
 
     public void placeOrder(){
-        System.out.println("place order");
+        String msg = "place order";
+        System.out.println(msg);
+        MessageTracker.addMsg(msg);
     }
 }

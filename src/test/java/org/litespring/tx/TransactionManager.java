@@ -3,6 +3,8 @@ package org.litespring.tx;
  * Created by DELL on 2018/7/31.
  */
 
+import org.litespring.util.MessageTracker;
+
 /**
  * user is lwb
  **/
@@ -11,14 +13,20 @@ package org.litespring.tx;
 public class TransactionManager {
 
     public void start(){
+        String msg = "transaction start";
         System.out.println("transaction start");
+        MessageTracker.addMsg(msg);
     }
 
     public void commit(){
-        System.out.println("transaction commit");
+        String msg = "transaction commit";
+        System.out.println(msg);
+        MessageTracker.addMsg(msg);
     }
 
     public void rollback(){
-        System.out.println("transaction rallback");
+        String msg = "transaction rallback";
+        System.out.println(msg);
+        MessageTracker.addMsg(msg);
     }
 }
