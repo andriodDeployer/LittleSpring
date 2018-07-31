@@ -71,6 +71,7 @@ public class spring开发笔记 {
         spring中仍然参考了aspectJ中的pointCut，JoinPoint，advice等概念。
 
 
+     多实现了一个接口，意味着又多扮演了一个角色。
 
 
      TDD:

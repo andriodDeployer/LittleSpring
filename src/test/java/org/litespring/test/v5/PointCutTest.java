@@ -31,7 +31,7 @@ public class PointCutTest {
         {
             Class<?> targetClass = PetStoreService.class;
 
-            Method method1 = targetClass.getMethod("placeOder");
+            Method method1 = targetClass.getMethod("placeOrder");
             Assert.assertTrue(mm.matches(method1));
 
             Method method2 = targetClass.getMethod("getAccountDao");
@@ -41,7 +41,7 @@ public class PointCutTest {
         //2.测试包名匹配
         {
             Class<?> targetClass = org.litespring.service.v4.PetStoreService.class;
-            Method method = targetClass.getMethod("placeOrder");
+            Method method = targetClass.getMethod("getAccountDao");
             Assert.assertFalse(mm.matches(method));
 
         }
