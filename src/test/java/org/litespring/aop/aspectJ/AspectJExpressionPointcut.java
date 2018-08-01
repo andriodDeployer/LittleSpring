@@ -1,4 +1,5 @@
-package org.litespring.aop.aspectJ;/**
+package org.litespring.aop.aspectJ;
+/**
  * Created by DELL on 2018/7/31.
  */
 
@@ -13,9 +14,6 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * user is
- **/
 
 /**
  * MethodMatcher主要为了隔离api，防止用户知道过多内部构造，
