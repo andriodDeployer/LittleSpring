@@ -11,6 +11,9 @@ import org.litespring.aop.aspectJ.AspectJBeforeAdvice;
 import org.litespring.aop.framework.ReflectiveMethodInvocation;
 import org.litespring.service.v5.PetStoreService;
 import org.litespring.tx.TransactionManager;
+import org.litespring.tx.TransactionManager2;
+import org.litespring.tx.TransactionManager3;
+import org.litespring.tx.TransactionManager4;
 import org.litespring.util.MessageTracker;
 
 import java.lang.reflect.Method;
@@ -22,18 +25,29 @@ import java.util.List;
  **/
 
 
-public class ReflectiveMethodInvocationTest {
+public class ReflectiveMethodInvocationTest1 {
 
     private AspectJBeforeAdvice beforeAdvice = null;
     private AspectJAfterReturningAdvice afterAdvice = null;
-   // private AspectJAfterThrowingAdvice afterThrowingAdvice;
     private PetStoreService petStoreService = null;
     private TransactionManager tx;
+    private TransactionManager2 tx2;
+    private TransactionManager3 tx3;
+    private TransactionManager4 tx4;
+
 
     @Before
     public void setUp() throws Exception{
         petStoreService = new PetStoreService();
         tx = new TransactionManager();
+
+//        tx4 = new TransactionManager4();
+//        tx2 = new TransactionManager2();
+//        tx3 = new TransactionManager3();
+
+
+
+
         MessageTracker.clearMsg();
         beforeAdvice = new AspectJBeforeAdvice(TransactionManager.class.getMethod("start"),null,tx);
         afterAdvice = new AspectJAfterReturningAdvice(TransactionManager.class.getMethod("commit"),null,tx);
@@ -48,6 +62,11 @@ public class ReflectiveMethodInvocationTest {
         interceptors.add(beforeAdvice);
         interceptors.add(afterAdvice);
 
+//        interceptors.add(new AspectJAfterReturningAdvice(TransactionManager.class.getMethod("commit"),null,tx));
+//        interceptors.add(new AspectJBeforeAdvice(TransactionManager2.class.getMethod("start"),null,tx2));
+//        interceptors.add(new AspectJAfterReturningAdvice(TransactionManager3.class.getMethod("commit"),null,tx3));
+//        interceptors.add(new AspectJBeforeAdvice(TransactionManager4.class.getMethod("start"),null,tx4));
+
         ReflectiveMethodInvocation mi = new ReflectiveMethodInvocation(petStoreService,targetMethod,new Object[0],interceptors);
         mi.proceed();
 
@@ -56,35 +75,6 @@ public class ReflectiveMethodInvocationTest {
         Assert.assertEquals("transaction start1",msgs.get(0));
         Assert.assertEquals("place order",msgs.get(1));
         Assert.assertEquals("transaction commit1",msgs.get(2));
-
-
-    }
-
-
-    @Test
-    public void testAfterThrowing() throws Throwable {
-        Method targetMethod = PetStoreService.class.getMethod("placeOrderWithException");
-        List<MethodInterceptor> interceptors = new ArrayList<MethodInterceptor>();
-       // interceptors.add(afterThrowingAdvice);
-        interceptors.add(beforeAdvice);
-
-
-        ReflectiveMethodInvocation im = new ReflectiveMethodInvocation(petStoreService,targetMethod,new Object[0],interceptors);
-        try{
-            im.proceed();
-        }catch (Exception e){
-            List<String> msgs = MessageTracker.getMsgs();
-            Assert.assertEquals(3,msgs.size());
-            Assert.assertEquals("transaction start1",msgs.get(0));
-            Assert.assertEquals("transaction rallback1",msgs.get(1));
-            return;
-        }
-
-
-        Assert.fail("No Exception throwed");
-
-
-
 
 
     }

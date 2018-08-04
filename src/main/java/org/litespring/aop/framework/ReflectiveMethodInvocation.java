@@ -45,6 +45,7 @@ public class ReflectiveMethodInvocation implements MethodInvocation{
         if(this.currentIntercepterIndex == interceptors.size()-1){
             return invokeJoinpoint();
         }
+
         this.currentIntercepterIndex ++;
         MethodInterceptor interceptor = this.interceptors.get(currentIntercepterIndex);
         return interceptor.invoke(this);
