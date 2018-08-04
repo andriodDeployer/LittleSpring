@@ -10,22 +10,22 @@ import org.litespring.util.MessageTracker;
  **/
 
 
-public class TransactionManager {
+public class TransactionManager4 {
 
     public void start(){
-        String msg = "transaction start1";
+        String msg = "transaction start4";
         System.out.println(msg);
         MessageTracker.addMsg(msg);
     }
 
     public void commit(){
-        String msg = "transaction commit1";
+        String msg = "transaction commit4";
         System.out.println(msg);
         MessageTracker.addMsg(msg);
     }
 
     public void rollback(){
-        String msg = "transaction rallback1";
+        String msg = "transaction rallback4";
         System.out.println(msg);
         MessageTracker.addMsg(msg);
     }
