@@ -11,10 +11,10 @@ import java.lang.reflect.Method;
  **/
 
 
-public class AspectAfterThrowingAdvice extends AbstractAspectJAdvice{
+public class AspectJAfterThrowingAdvice extends AbstractAspectJAdvice{
 
 
-    public AspectAfterThrowingAdvice(Method adviceMethod, AspectJExpressionPointcut pointcut, Object adviceObject) {
+    public AspectJAfterThrowingAdvice(Method adviceMethod, AspectJExpressionPointcut pointcut, Object adviceObject) {
         super(adviceMethod, pointcut, adviceObject);
     }
 

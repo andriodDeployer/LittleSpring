@@ -6,6 +6,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.litespring.aop.aspectJ.AspectJAfterThrowingAdvice;
 import org.litespring.aop.aspectJ.AspectJAfterReturningAdvice;
 import org.litespring.aop.aspectJ.AspectJBeforeAdvice;
 import org.litespring.aop.framework.ReflectiveMethodInvocation;
@@ -26,7 +27,7 @@ public class ReflectiveMethodInvocationTest {
 
     private AspectJBeforeAdvice beforeAdvice = null;
     private AspectJAfterReturningAdvice afterAdvice = null;
-   // private AspectJAfterThrowingAdvice afterThrowingAdvice;
+    private AspectJAfterThrowingAdvice afterThrowingAdvice;
     private PetStoreService petStoreService = null;
     private TransactionManager tx;
 
@@ -37,6 +38,7 @@ public class ReflectiveMethodInvocationTest {
         MessageTracker.clearMsg();
         beforeAdvice = new AspectJBeforeAdvice(TransactionManager.class.getMethod("start"),null,tx);
         afterAdvice = new AspectJAfterReturningAdvice(TransactionManager.class.getMethod("commit"),null,tx);
+        afterThrowingAdvice = new AspectJAfterThrowingAdvice(TransactionManager.class.getMethod("rollback"),null,tx);
     }
 
 
@@ -65,7 +67,7 @@ public class ReflectiveMethodInvocationTest {
     public void testAfterThrowing() throws Throwable {
         Method targetMethod = PetStoreService.class.getMethod("placeOrderWithException");
         List<MethodInterceptor> interceptors = new ArrayList<MethodInterceptor>();
-       // interceptors.add(afterThrowingAdvice);
+        interceptors.add(afterThrowingAdvice);
         interceptors.add(beforeAdvice);
 
 
