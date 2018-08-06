@@ -76,7 +76,7 @@ public class ReflectiveMethodInvocationTest {
             im.proceed();
         }catch (Exception e){
             List<String> msgs = MessageTracker.getMsgs();
-            Assert.assertEquals(3,msgs.size());
+            Assert.assertEquals(2,msgs.size());
             Assert.assertEquals("transaction start1",msgs.get(0));
             Assert.assertEquals("transaction rallback1",msgs.get(1));
             return;

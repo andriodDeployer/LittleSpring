@@ -13,7 +13,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         //ApplicationContext.class,
         MethodLocatingFactoryTest.class,
-        PointCutTest.class
+        PointCutTest.class,
+        ReflectiveMethodInvocationTest.class,
+        CGLibTest.class
+
 })
 public class TestAll_v5 {
 }
