@@ -35,6 +35,7 @@ public class ReflectiveMethodInvocationTest {
     public void setUp() throws Exception{
         petStoreService = new PetStoreService();
         tx = new TransactionManager();
+
         MessageTracker.clearMsg();
         beforeAdvice = new AspectJBeforeAdvice(TransactionManager.class.getMethod("start"),null,tx);
         afterAdvice = new AspectJAfterReturningAdvice(TransactionManager.class.getMethod("commit"),null,tx);
