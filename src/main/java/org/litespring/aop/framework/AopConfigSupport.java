@@ -28,7 +28,7 @@ public class AopConfigSupport implements AopConfig {
     }
 
     public Class<?> getTargetClass() {
-        return null;
+        return targetObject.getClass();
     }
 
     public Object getTargetObject() {
