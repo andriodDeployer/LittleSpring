@@ -151,8 +151,7 @@ public class CglibProxyFactory implements AopProxyFactory {
             }else{
                 List<org.aopalliance.intercept.MethodInterceptor> interceptors = new ArrayList<org.aopalliance.intercept.MethodInterceptor>();
                 interceptors.addAll(chain);
-                retVal = new ReflectiveMethodInvocation(target,method,objects,interceptors);
-
+                retVal = new ReflectiveMethodInvocation(target,method,objects,interceptors).proceed();
             }
             return retVal;
         }

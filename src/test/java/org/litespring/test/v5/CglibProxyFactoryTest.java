@@ -2,6 +2,7 @@ package org.litespring.test.v5;/**
  * Created by DELL on 2018/8/6.
  */
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.litespring.aop.aspectJ.AspectJAfterReturningAdvice;
@@ -59,15 +60,12 @@ public class CglibProxyFactoryTest {
         proxy.placeOrder();
 
         List<String> msgs = MessageTracker.getMsgs();
-//        Assert.assertEquals(3,msgs.size());
-//        Assert.assertEquals("transaction start1",msgs.get(0));
-//        Assert.assertEquals("place order",msgs.get(3));
-//        Assert.assertEquals("transaction commit1",msgs.get(2));
+        Assert.assertEquals(3,msgs.size());
+        Assert.assertEquals("transaction start1",msgs.get(0));
+        Assert.assertEquals("place order",msgs.get(1));
+        Assert.assertEquals("transaction commit1",msgs.get(2));
 
-
-
-
-
+        System.out.println(proxy.toString());
 
     }
 }
