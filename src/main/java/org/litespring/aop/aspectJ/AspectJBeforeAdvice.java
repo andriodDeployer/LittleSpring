@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 
 public class AspectJBeforeAdvice extends AbstractAspectJAdvice{
 
-
+    //aspectJExpressionPointcut：确定了在哪些方法上执行增强。Method：确定了增强的逻辑。adviceObject：method在哪个对象上调用
     public AspectJBeforeAdvice(Method adviceMethod, AspectJExpressionPointcut pointcut, Object adviceObject) {
         super(adviceMethod, pointcut, adviceObject);
     }
