@@ -28,6 +28,10 @@ public class ConstructorArgument {
         argumentValues.add(valueHolder);
     }
 
+    public void addArgumentValue(Object value){
+        argumentValues.add(new ValueHolder(value));
+    }
+
     public int getArgumentCount() {
         return argumentValues.size();
     }

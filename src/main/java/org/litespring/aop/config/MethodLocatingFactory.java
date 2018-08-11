@@ -21,9 +21,9 @@ import java.lang.reflect.Method;
 public class MethodLocatingFactory implements FactoryBean<Method> ,BeanFactoryAware{
 
     //字段：使用来描述一个类的属性，很显然这里只需要三个字段既可以定位一个方法了，这个类中虽然用到了BeanFactory，但是仅仅使用到了这个beanFactory，这个beanFactory不需要做为类的一个字段/状态
-    private String targetBeanName;
-    private String methodName;
-    private Method method;
+    private String targetBeanName; //aspect类名
+    private String methodName;  //aspect中的方法
+    private Method method;  //按照methodName指定的方法名从aspect中取出method实例
 
     public void setTargetBeanName(String targetBeanName){
         this.targetBeanName = targetBeanName;

@@ -39,7 +39,7 @@ public class BeanDefinationTestV5 extends AbstractV5Test{
             Assert.assertTrue(bd.getBeanClass().equals(AspectJExpressionPointcut.class));
             PropertyValue pv = bd.getPropertyValues().get(0);
             Assert.assertEquals("expression",pv.getName());
-            Assert.assertEquals("ddddd",pv.getValue());
+            Assert.assertEquals("execution(* org.litespring.service.v5.*.placeOrder(..))",pv.getValue());
 
         }
 
@@ -53,7 +53,7 @@ public class BeanDefinationTestV5 extends AbstractV5Test{
 
             Assert.assertTrue(bd.isSynthtic());
             List<PropertyValue> propertyValues = bd.getPropertyValues();
-            Assert.assertEquals(3,propertyValues.size());
+            Assert.assertEquals(1,propertyValues.size());
 
 
 
