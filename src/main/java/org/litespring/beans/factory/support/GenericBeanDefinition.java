@@ -32,6 +32,11 @@ public class GenericBeanDefinition implements BeanDefinition {
         this.beanClassName = beanClassName;
     }
 
+    public GenericBeanDefinition(Class beanClass){
+        this.beanClass = beanClass;
+        this.beanClassName = beanClass.getName();
+    }
+
     public GenericBeanDefinition() {
     }
 

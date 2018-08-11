@@ -1,5 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -7,6 +8,12 @@
 			http://www.springframework.org/schema/aop/spring-aop.xsd
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- 下面使用的标签，context，bean，aop其实都有对应的命名空间的，在上面的xmlns中都有命名空间对你的地址'
+		如context的命名空间为
+
+	-->
 
 	<context:component-scan
 		base-package="org.litespring.service.v5,org.litespring.dao.v5">

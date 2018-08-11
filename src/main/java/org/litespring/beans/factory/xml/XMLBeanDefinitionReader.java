@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.litespring.aop.config.ConfigBeanDefinitionParser;
 import org.litespring.beans.BeanDefinition;
 import org.litespring.beans.PropertyValue;
 import org.litespring.beans.ValueHolder;
@@ -57,6 +58,8 @@ public class XMLBeanDefinitionReader {
 
     public static final String CONTEXT_NAMESPACE_URI = "http://www.springframework.org/schema/context";
 
+    public static final String AOP_NAMESPACE_URI = "http://www.springframework.org/schema/aop";
+
     private static final String BASE_PACKAGE_ATTRIBUTE = "base-package";
 
 
@@ -79,7 +82,8 @@ public class XMLBeanDefinitionReader {
                 Iterator<Element> iter = root.elementIterator();
                 while(iter.hasNext()){
                     Element ele = iter.next();
-                    String namespaceUri = ele.getNamespaceURI();
+                    String namespaceUri = ele.getNamespaceURI();//获取标签的命名空间，就是xml中的上面的额xmlns对应的内容，可以用命名空间来区别使用的标签，因为不同的标签的命名空间是不同的
+                    //使用多态进行改进,使用map实现存放三种处理类，直接根据namespaceuri获取处理类。
                     //普通的bean
                     if(this.isDefaultNamespace(namespaceUri)){
                         parseDefaultElement(ele);
@@ -88,11 +92,9 @@ public class XMLBeanDefinitionReader {
                     else if(this.isContextNamespace(namespaceUri)){
                         parseComponentElement(ele);
                     }
-
-
                     //解析aop标注的合成bean，主要就是advice，pointcut等。
-                    else if(){
-
+                    else if(isAopNamespace(namespaceUri)){
+                        parseAopElement(ele);
                     }
 
 
@@ -109,6 +111,11 @@ public class XMLBeanDefinitionReader {
                 }
             }
         }
+    }
+
+    private void parseAopElement(Element ele) {
+        ConfigBeanDefinitionParser parser = new ConfigBeanDefinitionParser();
+        parser.parse(ele,this.registry);
     }
 
     private void parseComponentElement(Element ele) {
@@ -204,5 +211,8 @@ public class XMLBeanDefinitionReader {
     }
     public boolean isContextNamespace(String namespaceUri){
         return (!StringUtils.hasLength(namespaceUri) || CONTEXT_NAMESPACE_URI.equals(namespaceUri));
+    }
+    public boolean isAopNamespace(String namespaceUri){
+        return (!StringUtils.hasLength(namespaceUri) || AOP_NAMESPACE_URI.equals(namespaceUri));
     }
 }
