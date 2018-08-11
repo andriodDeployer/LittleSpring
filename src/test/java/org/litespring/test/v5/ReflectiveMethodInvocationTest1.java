@@ -48,9 +48,9 @@ public class ReflectiveMethodInvocationTest1 {
 
 
 
-        MessageTracker.clearMsg();
-        beforeAdvice = new AspectJBeforeAdvice(TransactionManager.class.getMethod("start"),null,tx);
-        afterAdvice = new AspectJAfterReturningAdvice(TransactionManager.class.getMethod("commit"),null,tx);
+//        MessageTracker.clearMsg();
+//        beforeAdvice = new AspectJBeforeAdvice(TransactionManager.class.getMethod("start"),null,tx);
+//        afterAdvice = new AspectJAfterReturningAdvice(TransactionManager.class.getMethod("commit"),null,tx);
     }
 
 

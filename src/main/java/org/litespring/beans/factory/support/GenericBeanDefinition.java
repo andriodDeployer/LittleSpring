@@ -23,6 +23,7 @@ public class GenericBeanDefinition implements BeanDefinition {
     private String scope;
     private boolean singleton = true;
     private boolean prototype = false;
+    private boolean isSynthtic = false;
     private List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
     private ConstructorArgument constructorArgument = new ConstructorArgument();
 
@@ -101,6 +102,14 @@ public class GenericBeanDefinition implements BeanDefinition {
 
     public boolean hasConstructorArgumentValues() {
         return !getConstructorArgument().isEmpty();
+    }
+
+    public boolean isSynthtic() {
+        return isSynthtic;
+    }
+
+    public void setSynthtic(boolean isSynthetic) {
+        this.isSynthtic =  isSynthetic;
     }
 
 }

@@ -5,6 +5,8 @@ package org.litespring.aop.config;
 
 import org.litespring.beans.BeanUtils;
 import org.litespring.beans.factory.BeanFactory;
+import org.litespring.beans.factory.BeanFactoryAware;
+import org.litespring.beans.factory.FactoryBean;
 import org.litespring.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -16,7 +18,7 @@ import java.lang.reflect.Method;
  * 面向对象编程
  */
 
-public class MethodLocatingFactory{
+public class MethodLocatingFactory implements FactoryBean<Method> ,BeanFactoryAware{
 
     //字段：使用来描述一个类的属性，很显然这里只需要三个字段既可以定位一个方法了，这个类中虽然用到了BeanFactory，但是仅仅使用到了这个beanFactory，这个beanFactory不需要做为类的一个字段/状态
     private String targetBeanName;
@@ -33,6 +35,10 @@ public class MethodLocatingFactory{
 
     public Method getObject(){
         return this.method;
+    }
+
+    public Class<Method> getObjectTypes() {
+        return Method.class;
     }
 
 

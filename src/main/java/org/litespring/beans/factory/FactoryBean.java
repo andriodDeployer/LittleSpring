@@ -15,7 +15,6 @@ package org.litespring.beans.factory;
  *             2.站在ioc容器的角度来说：实现这个接口的bean具有装饰的功能，因为按照实现类的名称，从ioc容器中找去这个bean时，可以返回这个bean的getObject方法的返回值，在这个getObject中可以对bean进行增强等操作。
  *             3.站在用户角度来说：实现这个接口的bean具有模板方法的作用。通常通过ioc获取这个bean时，如果发现这个bean实现了FactoryBean接口的话，，会返回给用户这个bean的getObject方法的返回值。
  *               这个流程是是固定的，固定在spring的框架中了，实现类可以通过实现getObject方法，来动态修改bean的真正值。
- * @param <T>
  */
 
 public interface FactoryBean<T> {

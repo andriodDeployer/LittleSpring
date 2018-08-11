@@ -30,4 +30,5 @@ public interface BeanDefinition {
     String getID();
 
     boolean hasConstructorArgumentValues();
+    boolean isSynthtic();
 }

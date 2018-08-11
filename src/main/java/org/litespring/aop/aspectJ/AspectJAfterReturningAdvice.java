@@ -3,6 +3,7 @@ package org.litespring.aop.aspectJ;/**
  */
 
 import org.aopalliance.intercept.MethodInvocation;
+import org.litespring.aop.config.AspectInstanceFactory;
 
 import java.lang.reflect.Method;
 
@@ -14,8 +15,8 @@ import java.lang.reflect.Method;
 public class AspectJAfterReturningAdvice extends AbstractAspectJAdvice {
 
 
-    public AspectJAfterReturningAdvice(Method adviceMethod, AspectJExpressionPointcut pointcut, Object adviceObject) {
-        super(adviceMethod, pointcut, adviceObject);
+    public AspectJAfterReturningAdvice(Method adviceMethod, AspectJExpressionPointcut pointcut, AspectInstanceFactory aspectInstanceFactory) {
+        super(adviceMethod, pointcut, aspectInstanceFactory);
     }
 
     //其实这是一个递归调用，很复杂，但是只要理解了语义，就很好理解了。

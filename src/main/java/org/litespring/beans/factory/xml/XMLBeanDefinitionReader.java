@@ -80,11 +80,22 @@ public class XMLBeanDefinitionReader {
                 while(iter.hasNext()){
                     Element ele = iter.next();
                     String namespaceUri = ele.getNamespaceURI();
+                    //普通的bean
                     if(this.isDefaultNamespace(namespaceUri)){
                         parseDefaultElement(ele);
-                    }else if(this.isContextNamespace(namespaceUri)){
+                    }
+                    //解析注解表示的bean
+                    else if(this.isContextNamespace(namespaceUri)){
                         parseComponentElement(ele);
                     }
+
+
+                    //解析aop标注的合成bean，主要就是advice，pointcut等。
+                    else if(){
+
+                    }
+
+
                 }
         } catch (Exception e) {
 

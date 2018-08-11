@@ -13,15 +13,17 @@
 	</context:component-scan>
 
 	<bean id="tx" class="org.litespring.tx.TransactionManager" />
-	
+
+
+
 	<aop:config>
 		
-		<aop:aspect ref="tx">
+		<aop:aspect ref="tx"> <!-- AspectInstanceFactory表示 -->
 
 			<aop:pointcut id="placeOrder"
-				expression="execution(* org.litespring.service.v5.*.placeOrder(..))" />
+				expression="execution(* org.litespring.service.v5.*.placeOrder(..))" /> <!-- AspcetJExpressionPointCut表示 -->
 			
-			<aop:before pointcut-ref="placeOrder" method="start" />
+			<aop:before pointcut-ref="placeOrder" method="start" /> <!-- AspectJBeforeAdvice表示，其中它持有了 MethodLocatingFactory(用来获取start表示的方法)，AspectInstanceFactory(配合MethodLocationFactory的调用)，AspectJExpressionPointCut(用来确定这个advice绑定的pointcut，也就是这个advice的使用范围) -->
 			<aop:after-returning pointcut-ref="placeOrder"	method="commit" />	
 			<aop:after-throwing pointcut-ref="placeOrder" method = "rollback"/>
 					
