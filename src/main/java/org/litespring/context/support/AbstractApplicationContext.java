@@ -12,6 +12,8 @@ import org.litespring.context.ApplicationContext;
 import org.litespring.core.io.Resource;
 import org.litespring.util.ClassUtils;
 
+import java.util.List;
+
 /**
  * user is lwb
  **/
@@ -61,5 +63,11 @@ public abstract class AbstractApplicationContext implements ApplicationContext{
 
     public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
         return null;
+    }
+
+
+    public List<Object> getBeansByType(Class clazz) {
+        //这种做法叫做委派，delegate
+        return this.factory.getBeansByType(clazz);
     }
 }
