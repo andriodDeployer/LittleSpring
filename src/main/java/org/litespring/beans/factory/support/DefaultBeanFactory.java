@@ -68,6 +68,24 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
         return beanDefinition.getBeanClass();
     }
 
+    public List<Object> getBeansByType(Class type) {
+        List<Object> result = new ArrayList<Object>();
+        for(String id : getBeanIdsByType(type)){
+            result.add(getBean(id));
+        }
+        return result;
+    }
+    private List<String> getBeanIdsByType(Class<?> type){
+        List<String> ids = new ArrayList<String>();
+        for(String beanName : this.beanDefinitionMap.keySet()){
+            if(type.isAssignableFrom(this.getType(beanName))){
+                ids.add(beanName);
+            }
+        }
+        return ids;
+    }
+
+
     private Object createBean(BeanDefinition bd) {
         Object bean = instantiateBean(bd);
         //populateBean(bd,bean);
